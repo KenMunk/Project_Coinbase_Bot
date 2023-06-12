@@ -23,15 +23,15 @@ const pricelog = new mongoose.Schema({
 	},
 	sma30: {
 		type: Number,
-		required: true
+		required: false
 	},
 	sma60: {
 		type: Number,
-		required: true
+		required: false
 	},
 	sma90: {
 		type: Number,
-		required: true
+		required: false
 	},
 	opportunity: {
 		type: String,

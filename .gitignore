@@ -128,3 +128,8 @@ dist
 .pnp.*
 *.crt
 *.key
+
+*./package-lock.json
+TraderMonitorService/package-lock.json
+package-lock.json
+package-lock.json

@@ -64,17 +64,21 @@ exports.initScheduledJobs = () => {
 						console.log("History is "+doc.length+ " entries");
 						
 						currentPriceSnap.sma90 = 0;
+						currentPriceSnap.sma30 = 0;
+						currentPriceSnap.sma60 = 0;
+						//*
 						doc.forEach((currentValue, index) => {
-							currentPriceSnap.sma90 = currentPriceSnap.sma90+currentValue.sell;
+							currentPriceSnap.sma90 +=currentValue.sell;
 						});
 						
 						currentPriceSnap.sma90 /= doc.length;
 						
 						history30 = doc.filter((currentValue) => {
-							return currentValue.timestamp >30*60000/5 
+							return currentValue.timestamp >timeOfNow - (30*60000/5 )
 						});
 						
-						currentPriceSnap.sma30 = 0;
+						console.log("History is "+history30.length+ " entries");
+						
 						history30.forEach((currentValue, index) => {
 							currentPriceSnap.sma30 = currentPriceSnap.sma30+currentValue.sell;
 						});
@@ -83,17 +87,18 @@ exports.initScheduledJobs = () => {
 						.length;
 						
 						history60 = doc.filter((currentValue) => {
-							return currentValue.timestamp >60*60000/5 
+							return currentValue.timestamp >timeOfNow - (60*60000/5)
 						});
 						
-						currentPriceSnap.sma60 = 0;
+						console.log("History is "+history60.length+ " entries");
+						
 						history60.forEach((currentValue, index) => {
 							currentPriceSnap.sma60 = currentPriceSnap.sma60+currentValue.sell;
 						});
 						
 						currentPriceSnap.sma60 /= history60
 						.length;
-						
+						//*/
 						if(doc.length+0 > 1000){
 							
 							currentPriceSnap.datasufficient = "sufficient";
