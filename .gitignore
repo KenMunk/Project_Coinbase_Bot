@@ -129,4 +129,3 @@ dist
 *.crt
 *.key
 
-*/package-lock.json
