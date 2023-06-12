@@ -71,8 +71,10 @@ exports.initScheduledJobs = () => {
 						currentPriceSnap.sma90 /= doc.length;
 						
 						history30 = doc.filter((currentValue) => {
-							return currentValue.timestamp >30*60000/5 
+							return currentValue.timestamp >currentValue.timestamp - (30*60000/5 )
 						});
+						
+						console.log("History is "+history30.length+ " entries");
 						
 						currentPriceSnap.sma30 = 0;
 						history30.forEach((currentValue, index) => {
@@ -83,8 +85,10 @@ exports.initScheduledJobs = () => {
 						.length;
 						
 						history60 = doc.filter((currentValue) => {
-							return currentValue.timestamp >60*60000/5 
+							return currentValue.timestamp >currentValue.timestamp - (60*60000/5)
 						});
+						
+						console.log("History is "+history60.length+ " entries");
 						
 						currentPriceSnap.sma60 = 0;
 						history60.forEach((currentValue, index) => {

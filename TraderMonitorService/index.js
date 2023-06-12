@@ -43,8 +43,8 @@ console.log("Initiating Route Setup Process");
 
 
 app.get("/", (req, res) => {
-    res.send("I will be shown on the Browser");
-    console.log("I will be shown on the Terminal");
+    res.send("");
+    console.log("Request detected");
 });
 
 console.log("Route Setup Process Complete");
