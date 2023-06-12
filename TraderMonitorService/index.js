@@ -57,10 +57,10 @@ console.log("Initiating scheduled function setup process");
 
 const scheduledFunctions = require('./scheduledFunctions/testscheduled');
 
-const scheduledEthUpdate = require('./scheduledFunctions/checkEthPrices')
+const scheduledEthUpdate = require('./scheduledFunctions/checkEthPrices');
 
 scheduledFunctions.initScheduledJobs();
-scheduledEthUpdate.initScheduledJobs();
+scheduledEthUpdate.initScheduledJobs("ETH","USD");
 
 console.log("Scheduled function setup process complete");
 //End Scheduled Task Imports
