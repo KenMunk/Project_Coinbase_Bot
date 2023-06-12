@@ -21,6 +21,14 @@ const pricelog = new mongoose.Schema({
 		type: Number,
 		required: true
 	},
+	sma5: {
+		type: Number,
+		required: false
+	},
+	sma10: {
+		type: Number,
+		required: false
+	},
 	sma30: {
 		type: Number,
 		required: false
@@ -34,13 +42,13 @@ const pricelog = new mongoose.Schema({
 		required: false
 	},
 	opportunity: {
-		type: String,
-		required: true
+		type: Number,
+		required: false
 	},
 	
 	datasufficient: {
-		type: String,
-		required: true
+		type: Number,
+		required: false
 	}
 });
 

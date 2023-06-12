@@ -2,27 +2,31 @@ const CronJob = require("node-cron");
 const PriceLog = require('../models/pricelog');
 
 exports.initScheduledJobs = (cryptoType) => {
-  const scheduledJobFunction = CronJob.schedule("*/5 * * * * *", () => {
+  const scheduledJobFunction = CronJob.schedule("*/10 * * * * *", () => {
 	
 	const timeOfNow = (Date.now().valueOf())
 	
-    console.log("Getting Eth Price for "+(timeOfNow) + " " + new Date(timeOfNow).toString());
+    console.log("Getting "+cryptoType+" Price for "+(timeOfNow) + " " + new Date(timeOfNow).toString());
     // Add your custom logic here
 	
-	const api_address = process.env.COINBASE_PRICE_ROOT+""+"/ETH-USD/buy";
-	const api_address_sell = process.env.COINBASE_PRICE_ROOT+""+"/ETH-USD/sell";
+	const api_address = process.env.COINBASE_PRICE_ROOT+""+"/"+cryptoType+"-USD/buy";
+	const api_address_sell = process.env.COINBASE_PRICE_ROOT+""+"/"+cryptoType+"-USD/sell";
+	
 	
 	const currentPriceSnap = {
-		crypto: "ETH",
+		crypto: cryptoType,
 		currency: "USD",
 		timestamp: timeOfNow,
 		buy: null,
 		sell: null,
+		sma5: 0,
+		sma10: 0,
 		sma30: 0,
 		sma60: 0,
 		sma90: 0,
-		opportunity: "potential buy",
-		datasufficient: "no"
+		opportunity: 0,
+		opportunityNow: 0,
+		datasufficient: 0
 	};
 	
 	const merged_object = Object.assign({}, { quote: true});
@@ -58,15 +62,14 @@ exports.initScheduledJobs = (cryptoType) => {
 					//console.log(data);
 					currentPriceSnap.sell=data.data.amount;
 					
-					const history = PriceLog.find({timestamp: {$gte: timeOfNow-90*60000}, crypto: "ETH",
+					const history = PriceLog.find({timestamp: {$gte: timeOfNow-5*90*60000}, crypto: cryptoType,
 					currency: "USD"}).then(function(doc90){
-						console.log("History is "+doc90.length+ " entries");
+						//console.log("History is "+doc90.length+ " entries");
 						
 						if(doc90.length > 0){
 							
-							if(doc90.length > 500){
-								currentPriceSnap.datasufficient = "sufficient";
-							}
+							currentPriceSnap.datasufficient = doc90.length;
+							
 							//*
 							doc90.forEach((currentValue, index) => {
 								currentPriceSnap.sma90 +=currentValue.sell;
@@ -74,9 +77,9 @@ exports.initScheduledJobs = (cryptoType) => {
 							
 							currentPriceSnap.sma90 /= doc90.length;
 							
-							const history = PriceLog.find({timestamp: {$gte: timeOfNow-60*60000}, crypto: "ETH",
+							const history = PriceLog.find({timestamp: {$gte: timeOfNow-5*60*60000}, crypto: cryptoType,
 							currency: "USD"}).then(function(doc60){
-								console.log("History is "+doc60.length+ " entries");
+								//console.log("History is "+doc60.length+ " entries");
 								
 								doc60.forEach((currentValue, index) => {
 									currentPriceSnap.sma60 +=currentValue.sell;
@@ -84,9 +87,9 @@ exports.initScheduledJobs = (cryptoType) => {
 								
 								currentPriceSnap.sma60 /= doc60.length;
 								
-								const history = PriceLog.find({timestamp: {$gte: timeOfNow-30*60000}, crypto: "ETH",
+								const history = PriceLog.find({timestamp: {$gte: timeOfNow-5*30*60000}, crypto: cryptoType,
 								currency: "USD"}).then(function(doc30){
-									console.log("History is "+doc30.length+ " entries");
+									//console.log("History is "+doc30.length+ " entries");
 									
 									//*
 									doc30.forEach((currentValue, index) => {
@@ -95,25 +98,86 @@ exports.initScheduledJobs = (cryptoType) => {
 									
 									currentPriceSnap.sma30 /= doc30.length;
 									
-									const history = PriceLog.find({timestamp: {$gte: timeOfNow-2.2*60000}, crypto: "ETH",
-									currency: "USD"}).then(function(doc){
-										console.log("History is "+doc.length+ " entries");
+									const history = PriceLog.find({timestamp: {$gte: timeOfNow-5*10*60000}, crypto: cryptoType,
+									currency: "USD"}).then(function(doc10){
+										//console.log("History is "+doc10.length+ " entries");
 										
-										
-										
-										doc.forEach((currentValue, index) => {
-											if(
-												currentValue.sma30 > currentValue.sell ||
-												currentValue.sma60 > currentValue.sell ||
-												currentValue.sma90 > currentValue.sell 
-											){
-												currentPriceSnap.opportunity = "potential sell";
-											}
+										//*
+										doc10.forEach((currentValue, index) => {
+											currentPriceSnap.sma10 +=currentValue.sell;
 										});
 										
-										console.log(currentPriceSnap);
-										const newEntry = new PriceLog(currentPriceSnap);
-										newEntry.save();
+										currentPriceSnap.sma10 /= doc10.length;
+										
+										
+										const history = PriceLog.find({timestamp: {$gte: timeOfNow-5*5*60000}, crypto: cryptoType,
+										currency: "USD"}).then(function(doc5){
+											//console.log("History is "+doc5.length+ " entries");
+											
+											//*
+											doc5.forEach((currentValue, index) => {
+												currentPriceSnap.sma5 +=currentValue.sell;
+											});
+											
+											currentPriceSnap.sma5 /= doc5.length;
+											
+											const history = PriceLog.find({timestamp: {$gte: timeOfNow-6*60*60000}, crypto: cryptoType,
+											currency: "USD"}).then(function(doc){
+												//console.log("History is "+doc.length+ " entries");
+												
+												
+												//The closer the opportunity score is to zero, the better the prospect to buy
+												
+												if(
+													currentPriceSnap.sma5 > currentPriceSnap.sell 
+												){
+													currentPriceSnap.opportunityNow += 1;
+												}
+												if(
+													currentPriceSnap.sma10 > currentPriceSnap.sell 
+												){
+													currentPriceSnap.opportunityNow += 10;
+												}
+												if(
+													currentPriceSnap.sma30 > currentPriceSnap.sell 
+												){
+													currentPriceSnap.opportunityNow += 100;
+												}
+												if(
+													currentPriceSnap.sma60 > currentPriceSnap.sell 
+												){
+													currentPriceSnap.opportunityNow += 1000;
+												}
+												if(
+													currentPriceSnap.sma90 > currentPriceSnap.sell 
+												){
+													currentPriceSnap.opportunityNow += 10000;
+												}
+												doc.forEach((currentValue, index) => {
+													if(
+														currentValue.sma30 > currentValue.sell 
+													){
+														currentPriceSnap.opportunity += 1;
+													}
+													if(
+														currentValue.sma60 > currentValue.sell 
+													){
+														currentPriceSnap.opportunity += 1;
+													}
+													if(
+														currentValue.sma90 > currentValue.sell 
+													){
+														currentPriceSnap.opportunity += 1;
+													}
+												});
+												
+												console.log(currentPriceSnap);
+												const newEntry = new PriceLog(currentPriceSnap);
+												newEntry.save();
+												
+											});
+											
+										});
 										
 									});
 									
@@ -123,6 +187,8 @@ exports.initScheduledJobs = (cryptoType) => {
 						else{
 							currentPriceSnap.sma90 = currentPriceSnap.sell;
 							currentPriceSnap.sma30 = currentPriceSnap.sell;
+							currentPriceSnap.sma10 = currentPriceSnap.sell;
+							currentPriceSnap.sma5 = currentPriceSnap.sell;
 							currentPriceSnap.sma60 = currentPriceSnap.sell;
 							console.log(currentPriceSnap);
 							const newEntry = new PriceLog(currentPriceSnap);
