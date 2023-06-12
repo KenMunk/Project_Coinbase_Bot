@@ -11,7 +11,7 @@
     "http-errors": "~1.6.3",
     "jade": "^0.29.0",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.2.3",
+    "mongoose": "7.0.3",
     "morgan": "~1.9.1",
     "node-cron": "^3.0.2",
     "nodemon": "^2.0.22",
