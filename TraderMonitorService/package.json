@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "express-useragent": "^1.0.15",
+    "http-errors": "~1.6.3",
+    "jade": "^0.29.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.2.3",
+    "morgan": "~1.9.1",
+    "node-cron": "^3.0.2",
+    "nodemon": "^2.0.22",
+    "uuid": "^9.0.0"
+  },
+  "name": "trader monitor service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
