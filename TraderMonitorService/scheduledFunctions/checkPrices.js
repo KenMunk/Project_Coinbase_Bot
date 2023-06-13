@@ -1,16 +1,16 @@
 const CronJob = require("node-cron");
 const PriceLog = require('../models/pricelog');
 
-exports.initScheduledJobs = (cryptoType) => {
-  const scheduledJobFunction = CronJob.schedule("*/10 * * * * *", () => {
+exports.initScheduledJobs = (cryptoType, currencyType, updateInterval) => {
+  const scheduledJobFunction = CronJob.schedule(""+updateInterval, () => {
 	
 	const timeOfNow = (Date.now().valueOf())
 	
     console.log("Getting "+cryptoType+" Price for "+(timeOfNow) + " " + new Date(timeOfNow).toString());
     // Add your custom logic here
 	
-	const api_address = process.env.COINBASE_PRICE_ROOT+""+"/"+cryptoType+"-USD/buy";
-	const api_address_sell = process.env.COINBASE_PRICE_ROOT+""+"/"+cryptoType+"-USD/sell";
+	const api_address = process.env.COINBASE_PRICE_ROOT+""+"/"+cryptoType+"-"+currencyType+"/buy";
+	const api_address_sell = process.env.COINBASE_PRICE_ROOT+""+"/"+cryptoType+"-"+currencyType+"/sell";
 	
 	
 	const currentPriceSnap = {
@@ -18,15 +18,7 @@ exports.initScheduledJobs = (cryptoType) => {
 		currency: "USD",
 		timestamp: timeOfNow,
 		buy: null,
-		sell: null,
-		sma5: 0,
-		sma10: 0,
-		sma30: 0,
-		sma60: 0,
-		sma90: 0,
-		opportunity: 0,
-		opportunityNow: 0,
-		datasufficient: 0
+		sell: null
 	};
 	
 	const merged_object = Object.assign({}, { quote: true});
@@ -62,8 +54,9 @@ exports.initScheduledJobs = (cryptoType) => {
 					//console.log(data);
 					currentPriceSnap.sell=data.data.amount;
 					
+					/*
 					const history = PriceLog.find({timestamp: {$gte: timeOfNow-5*90*60000}, crypto: cryptoType,
-					currency: "USD"}).then(function(doc90){
+					currency: currencyType}).then(function(doc90){
 						//console.log("History is "+doc90.length+ " entries");
 						
 						if(doc90.length > 0){
@@ -78,7 +71,7 @@ exports.initScheduledJobs = (cryptoType) => {
 							currentPriceSnap.sma90 /= doc90.length;
 							
 							const history = PriceLog.find({timestamp: {$gte: timeOfNow-5*60*60000}, crypto: cryptoType,
-							currency: "USD"}).then(function(doc60){
+							currency: currencyType}).then(function(doc60){
 								//console.log("History is "+doc60.length+ " entries");
 								
 								doc60.forEach((currentValue, index) => {
@@ -88,7 +81,7 @@ exports.initScheduledJobs = (cryptoType) => {
 								currentPriceSnap.sma60 /= doc60.length;
 								
 								const history = PriceLog.find({timestamp: {$gte: timeOfNow-5*30*60000}, crypto: cryptoType,
-								currency: "USD"}).then(function(doc30){
+								currency: currencyType}).then(function(doc30){
 									//console.log("History is "+doc30.length+ " entries");
 									
 									//*
@@ -99,7 +92,7 @@ exports.initScheduledJobs = (cryptoType) => {
 									currentPriceSnap.sma30 /= doc30.length;
 									
 									const history = PriceLog.find({timestamp: {$gte: timeOfNow-5*10*60000}, crypto: cryptoType,
-									currency: "USD"}).then(function(doc10){
+									currency: currencyType}).then(function(doc10){
 										//console.log("History is "+doc10.length+ " entries");
 										
 										//*
@@ -111,7 +104,7 @@ exports.initScheduledJobs = (cryptoType) => {
 										
 										
 										const history = PriceLog.find({timestamp: {$gte: timeOfNow-5*5*60000}, crypto: cryptoType,
-										currency: "USD"}).then(function(doc5){
+										currency: currencyType}).then(function(doc5){
 											//console.log("History is "+doc5.length+ " entries");
 											
 											//*
@@ -122,7 +115,7 @@ exports.initScheduledJobs = (cryptoType) => {
 											currentPriceSnap.sma5 /= doc5.length;
 											
 											const history = PriceLog.find({timestamp: {$gte: timeOfNow-6*60*60000}, crypto: cryptoType,
-											currency: "USD"}).then(function(doc){
+											currency: currencyType}).then(function(doc){
 												//console.log("History is "+doc.length+ " entries");
 												
 												
@@ -197,6 +190,14 @@ exports.initScheduledJobs = (cryptoType) => {
 						
 						
 					});
+					//*/
+					
+					//*
+					
+					console.log(currentPriceSnap);
+					const newEntry = new PriceLog(currentPriceSnap);
+					newEntry.save()
+					//*/
 					
 				});
 			} catch (error){

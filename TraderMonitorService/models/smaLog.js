@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const pricelog = new mongoose.Schema({
+const smaLog = new mongoose.Schema({
 	crypto: {
 		type: String,
 		required: true
@@ -13,14 +13,18 @@ const pricelog = new mongoose.Schema({
 		type: Number,
 		required: true
 	},
-	buy: {
+	smaRange: {
 		type: Number,
 		required: true
 	},
-	sell: {
+	value: {
 		type: Number,
+		required: true
+	},
+	smaType: {
+		type: String,
 		required: true
 	}
 });
 
-module.exports = mongoose.model('PriceLog', pricelog);
+module.exports = mongoose.model('SMA', smaLog);

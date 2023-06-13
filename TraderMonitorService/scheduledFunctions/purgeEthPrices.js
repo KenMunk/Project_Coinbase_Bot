@@ -4,7 +4,7 @@ const PriceLog = require('../models/pricelog');
 exports.initScheduledJobs = () => {
   const scheduledJobFunction = CronJob.schedule("0 0 0 */2 * *", () => {
 	
-	const timeOfNow = (Date.now().valueOf())-(48*60000);
+	const timeOfNow = (Date.now().valueOf())-(96*60*60000);
 	
     console.log("Purging Eth Prices Older Than "+(timeOfNow) + " " + new Date(timeOfNow).toString());
     // Add your custom logic here
