@@ -1,11 +1,9 @@
 const CronJob = require("node-cron");
 const SMALog = require('../models/smaLog');
+const PriceLog = require('../models/pricelog');
 
-exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, timeBack, smaType, smaRefData, smaRefField) => {	
+exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, timeBack, smaType) => {	
   const scheduledJobFunction = CronJob.schedule(""+updateInterval, () => {
-	
-	
-	const DataLog = require('../models/'+smaRefData);
 	
 	const timeOfNow = (Date.now().valueOf())
 	
@@ -14,7 +12,8 @@ exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, timeBack,
 		currency: currencyType,
 		timestamp: timeOfNow,
 		smaRange: timeBack,
-		smaType: smaType
+		smaType: smaType,
+		value: 0
 		
 	};
 	
@@ -23,22 +22,24 @@ exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, timeBack,
 		
 		//*
 		
-		const history = DataLog.find({timestamp: {$gte: timeOfNow-timeBack}, crypto: cryptoType,
+		const history = PriceLog.find({timestamp: {$gte: timeOfNow-timeBack}, crypto: cryptoType,
 		currency: currencyType}).then(function(doc){
 			//console.log("History is "+doc.length+ " entries");
 			
-			const dataDensity = new PriceDensityLog
 			
 			if(doc.length > 0){
 				
 				//*
 				doc.forEach((currentValue, index) => {
-					currentDataScore.value += currentValue;
+					currentDataScore.value += currentValue.sell;
 				});
 				
 				currentDataScore.value /= doc.length;
 				
+				console.log(currentDataScore);
+				
 				const newSMA = new SMALog(currentDataScore);
+				newSMA.save();
 			}
 			
 			
