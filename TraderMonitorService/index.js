@@ -32,7 +32,12 @@ try{
 	app.use(cors(corsOptions));
 
 	const uri = process.env.ATLAS_URI;
-	mongoose.connect(uri);
+	mongoose.connect(uri).then(() => {
+		console.log('Connected to MongoDB');
+		// Perform further operations here
+	}).catch((error) => {
+		console.error('Error connecting to MongoDB:', error);
+	});;
 
 	const connection = mongoose.connection;
 	connection.once("open", () => {
@@ -73,13 +78,7 @@ try{
 	scheduleDataScoreUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *",1080,6);
 	scheduleDataScoreUpdate.initScheduledJobs("APT","USD","*/20 * * * * *",1080,6);
 
-	//Too sluggish
-	//scheduledEthUpdate.initScheduledJobs("ADA","USD","2 */2 * * * *");
-	//scheduledEthUpdate.initScheduledJobs("MATIC","USD","2 */2 * * * *");
-
-
-	//SHIB is too close to zero to monitor
-	//scheduledEthUpdate.initScheduledJobs("SHIB","USD");
+	
 
 	console.log("Scheduled function setup process complete");
 	//End Scheduled Task Imports
