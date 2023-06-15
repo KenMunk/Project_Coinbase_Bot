@@ -18,7 +18,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon ./index.js"
+    "test": "nodemon ./index.js",
 	"start": "forever ./index.js"
   },
   "keywords": [],

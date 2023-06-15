@@ -39,7 +39,7 @@ exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, expectedC
 					const newDensity = new PriceDensityLog(currentDataScore).save();
 				}
 				
-			}).catch(function(error){console.log("Something went wrong with the data density:\n"+error);});
+			}).catch(function(error){console.log("Something went wrong with the data density for " + cryptoType + ":\n"+error);});
 			
 			
 		});
