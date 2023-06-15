@@ -35,58 +35,59 @@ try{
 	mongoose.connect(uri).then(() => {
 		console.log('Connected to MongoDB');
 		// Perform further operations here
+			
+		const connection = mongoose.connection;
+		connection.once("open", () => {
+		  console.log("MongoDB database connection established successfully");
+		});
+
+		// Route Imports
+		console.log("Initiating Route Setup Process");
+
+
+
+		app.get("/", (req, res) => {
+			res.send("");
+			console.log("Request detected");
+		});
+
+		console.log("Route Setup Process Complete");
+		// End Route Imports
+
+
+		//Scheduled Task Imports
+		console.log("Initiating scheduled function setup process");
+
+		//const scheduledFunctions = require('./scheduledFunctions/testscheduled');
+
+		const scheduledEthUpdate = require('./scheduledFunctions/checkPrices');
+
+		//scheduledFunctions.initScheduledJobs();
+		scheduledEthUpdate.initScheduledJobs("ETH","USD","*/20 * * * * *");
+		scheduledEthUpdate.initScheduledJobs("DOT","USD","*/20 * * * * *");
+		scheduledEthUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *");
+		scheduledEthUpdate.initScheduledJobs("APT","USD","*/20 * * * * *");
+
+		const scheduleDataScoreUpdate = require('./scheduledFunctions/checkDataDensity');
+
+		scheduleDataScoreUpdate.initScheduledJobs("ETH","USD","*/20 * * * * *",1080,6);
+		scheduleDataScoreUpdate.initScheduledJobs("DOT","USD","*/20 * * * * *",1080,6);
+		scheduleDataScoreUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *",1080,6);
+		scheduleDataScoreUpdate.initScheduledJobs("APT","USD","*/20 * * * * *",1080,6);
+
+		
+
+		console.log("Scheduled function setup process complete");
+		//End Scheduled Task Imports
+
+
+		app.listen(port, () => {
+		  console.log(`Server is running on port: ${port}`);
+		});
 	}).catch((error) => {
 		console.error('Error connecting to MongoDB:', error);
 	});;
 
-	const connection = mongoose.connection;
-	connection.once("open", () => {
-	  console.log("MongoDB database connection established successfully");
-	});
-
-	// Route Imports
-	console.log("Initiating Route Setup Process");
-
-
-
-	app.get("/", (req, res) => {
-		res.send("");
-		console.log("Request detected");
-	});
-
-	console.log("Route Setup Process Complete");
-	// End Route Imports
-
-
-	//Scheduled Task Imports
-	console.log("Initiating scheduled function setup process");
-
-	//const scheduledFunctions = require('./scheduledFunctions/testscheduled');
-
-	const scheduledEthUpdate = require('./scheduledFunctions/checkPrices');
-
-	//scheduledFunctions.initScheduledJobs();
-	scheduledEthUpdate.initScheduledJobs("ETH","USD","*/20 * * * * *");
-	scheduledEthUpdate.initScheduledJobs("DOT","USD","*/20 * * * * *");
-	scheduledEthUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *");
-	scheduledEthUpdate.initScheduledJobs("APT","USD","*/20 * * * * *");
-
-	const scheduleDataScoreUpdate = require('./scheduledFunctions/checkDataDensity');
-
-	scheduleDataScoreUpdate.initScheduledJobs("ETH","USD","*/20 * * * * *",1080,6);
-	scheduleDataScoreUpdate.initScheduledJobs("DOT","USD","*/20 * * * * *",1080,6);
-	scheduleDataScoreUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *",1080,6);
-	scheduleDataScoreUpdate.initScheduledJobs("APT","USD","*/20 * * * * *",1080,6);
-
-	
-
-	console.log("Scheduled function setup process complete");
-	//End Scheduled Task Imports
-
-
-	app.listen(port, () => {
-	  console.log(`Server is running on port: ${port}`);
-	});
 
 	}
 catch(error){
