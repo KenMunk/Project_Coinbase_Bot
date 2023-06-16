@@ -12,7 +12,6 @@ exports.initScheduledJobs = (cryptoType, currencyType, updateInterval) => {
 	const api_address = process.env.COINBASE_PRICE_ROOT+""+"/"+cryptoType+"-"+currencyType+"/buy";
 	const api_address_sell = process.env.COINBASE_PRICE_ROOT+""+"/"+cryptoType+"-"+currencyType+"/sell";
 	
-	
 	const currentPriceSnap = {
 		crypto: cryptoType,
 		currency: "USD",
@@ -23,14 +22,21 @@ exports.initScheduledJobs = (cryptoType, currencyType, updateInterval) => {
 	
 	const merged_object = Object.assign({}, { quote: true});
 	try{
-			
+		
+		
 		const userData = fetch(api_address, {
 			method: "GET",
 			parameter: JSON.stringify(merged_object)
 		})
 		.then(response => {
 			//console.log(response);
-			return(response.json());
+			try{
+				
+				return(response.json());
+			}
+			catch(error){
+				return({});
+			}
 		})
 		.then(data => {
 			

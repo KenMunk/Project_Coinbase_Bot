@@ -102,6 +102,33 @@ try{
 		scheduledSMAUpdate.initScheduledJobs("APT","USD","*/20 * * * * *",60*60000,"60MinPrice");
 		scheduledSMAUpdate.initScheduledJobs("APT","USD","*/20 * * * * *",90*60000,"90MinPrice");
 		
+		
+		const scheduledBuySellDifferential = require('./scheduledFunctions/updateBuySellDifferential');
+
+		scheduledBuySellDifferential.initScheduledJobs("ETH","USD","*/20 * * * * *",25000,"25SecDiff");
+		scheduledBuySellDifferential.initScheduledJobs("ETH","USD","*/20 * * * * *",5*60000,"5MinDiff");
+		scheduledBuySellDifferential.initScheduledJobs("ETH","USD","*/20 * * * * *",10*60000,"10MinDiff");
+		scheduledBuySellDifferential.initScheduledJobs("ETH","USD","*/20 * * * * *",90*60000,"90MinDiff");
+		scheduledBuySellDifferential.initScheduledJobs("ETH","USD","*/20 * * * * *",6*60*60000,"6HourDiff");
+
+		scheduledBuySellDifferential.initScheduledJobs("DOT","USD","*/20 * * * * *",25000,"25SecDiff");
+		scheduledBuySellDifferential.initScheduledJobs("DOT","USD","*/20 * * * * *",5*60000,"5MinDiff");
+		scheduledBuySellDifferential.initScheduledJobs("DOT","USD","*/20 * * * * *",10*60000,"10MinDiff");
+		scheduledBuySellDifferential.initScheduledJobs("DOT","USD","*/20 * * * * *",90*60000,"90MinDiff");
+		scheduledBuySellDifferential.initScheduledJobs("DOT","USD","*/20 * * * * *",6*60*60000,"6HourDiff");
+
+		scheduledBuySellDifferential.initScheduledJobs("ATOM","USD","*/20 * * * * *",25000,"25SecDiff");
+		scheduledBuySellDifferential.initScheduledJobs("ATOM","USD","*/20 * * * * *",5*60000,"5MinDiff");
+		scheduledBuySellDifferential.initScheduledJobs("ATOM","USD","*/20 * * * * *",10*60000,"10MinDiff");
+		scheduledBuySellDifferential.initScheduledJobs("ATOM","USD","*/20 * * * * *",90*60000,"90MinDiff");
+		scheduledBuySellDifferential.initScheduledJobs("ATOM","USD","*/20 * * * * *",6*60*60000,"6HourDiff");
+
+		scheduledBuySellDifferential.initScheduledJobs("APT","USD","*/20 * * * * *",25000,"25SecDiff");
+		scheduledBuySellDifferential.initScheduledJobs("APT","USD","*/20 * * * * *",5*60000,"5MinDiff");
+		scheduledBuySellDifferential.initScheduledJobs("APT","USD","*/20 * * * * *",10*60000,"10MinDiff");
+		scheduledBuySellDifferential.initScheduledJobs("APT","USD","*/20 * * * * *",90*60000,"90MinDiff");
+		scheduledBuySellDifferential.initScheduledJobs("APT","USD","*/20 * * * * *",6*60*60000,"6HourDiff");
+		
 		console.log("Scheduled function setup process complete");
 		
 		//End Scheduled Task Imports
