@@ -17,6 +17,10 @@ const differentialLog = new mongoose.Schema({
 		type: Number,
 		required: true
 	},
+	diffType: {
+		type: String,
+		required: true
+	},
 	value: {
 		type: Number,
 		required: true

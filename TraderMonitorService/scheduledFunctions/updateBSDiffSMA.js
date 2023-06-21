@@ -24,7 +24,7 @@ exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, timeBack,
 		//*
 		
 		const history = DiffLog.find({timestamp: {$gte: timeOfNow-timeBack}, crypto: cryptoType,
-		currency: currencyType, smaType: diffType}).then(function(doc){
+		currency: currencyType}).then(function(doc){
 			//console.log("History is "+doc.length+ " entries");
 			
 			
@@ -39,8 +39,8 @@ exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, timeBack,
 				
 				console.log(currentDataScore);
 				
-				const newDiff = new DiffLog(currentDataScore);
-				newDiff.save();
+				const newSMA = new SMALog(currentDataScore);
+				newSMA.save();
 			}
 			
 			

@@ -129,6 +129,23 @@ try{
 		scheduledBuySellDifferential.initScheduledJobs("APT","USD","*/20 * * * * *",90*60000,"90MinDiff");
 		scheduledBuySellDifferential.initScheduledJobs("APT","USD","*/20 * * * * *",6*60*60000,"6HourDiff");
 		
+		const scheduledBSDSMA = require('./scheduledFunctions/updateBuySellDifferential');
+		
+		/*
+		05 min sma
+		10 min sma
+		30 min sma
+		60 min sma
+		90 min sma
+		*/
+		
+		//Maybe I should have a table inside of the database for this system consisting of all of the coins monitored and then automate the whole spinning up of these scheduled processes
+		
+		scheduledBSDSMA.initScheduledJobs("ETH","USD","*/20 * * * * *",5*60000,"5MinDiffSMA","25SecDiff");
+		scheduledBSDSMA.initScheduledJobs("ETH","USD","*/20 * * * * *",10*60000,"10MinDiffSMA","25SecDiff");
+		
+		
+		
 		console.log("Scheduled function setup process complete");
 		
 		//End Scheduled Task Imports
