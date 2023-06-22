@@ -50,86 +50,25 @@ try{
 			res.send("");
 			console.log("Request detected");
 		});
+		
+		const targets = require('./routes/MonitorTarget');
+		
+		app.use('/target', targets);
 
 		console.log("Route Setup Process Complete");
 		// End Route Imports
-
+		
+		
 
 		//Scheduled Task Imports
 		console.log("Initiating scheduled function setup process");
 
 		//const scheduledFunctions = require('./scheduledFunctions/testscheduled');
-
-		const scheduledEthUpdate = require('./scheduledFunctions/checkPrices');
-
-		//scheduledFunctions.initScheduledJobs();
-		scheduledEthUpdate.initScheduledJobs("ETH","USD","*/20 * * * * *");
-		scheduledEthUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *");
-		scheduledEthUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *");
-		scheduledEthUpdate.initScheduledJobs("APT","USD","*/20 * * * * *");
-
-		const scheduleDataScoreUpdate = require('./scheduledFunctions/checkDataDensity');
-
-		scheduleDataScoreUpdate.initScheduledJobs("ETH","USD","*/20 * * * * *",1080,6);
-		scheduleDataScoreUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *",1080,6);
-		scheduleDataScoreUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *",1080,6);
-		scheduleDataScoreUpdate.initScheduledJobs("APT","USD","*/20 * * * * *",1080,6);
-
-
-		const scheduledSMAUpdate = require('./scheduledFunctions/updateSellSMA');
-
-		scheduledSMAUpdate.initScheduledJobs("ETH","USD","*/20 * * * * *",5*60000,"5MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("ETH","USD","*/20 * * * * *",10*60000,"10MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("ETH","USD","*/20 * * * * *",30*60000,"30MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("ETH","USD","*/20 * * * * *",60*60000,"60MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("ETH","USD","*/20 * * * * *",90*60000,"90MinPrice");
-		
-		scheduledSMAUpdate.initScheduledJobs("DOT","USD","*/20 * * * * *",5*60000,"5MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("DOT","USD","*/20 * * * * *",10*60000,"10MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("DOT","USD","*/20 * * * * *",30*60000,"30MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("DOT","USD","*/20 * * * * *",60*60000,"60MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("DOT","USD","*/20 * * * * *",90*60000,"90MinPrice");
-		
-		scheduledSMAUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *",5*60000,"5MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *",10*60000,"10MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *",30*60000,"30MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *",60*60000,"60MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("ATOM","USD","*/20 * * * * *",90*60000,"90MinPrice");
-		
-		scheduledSMAUpdate.initScheduledJobs("APT","USD","*/20 * * * * *",5*60000,"5MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("APT","USD","*/20 * * * * *",10*60000,"10MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("APT","USD","*/20 * * * * *",30*60000,"30MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("APT","USD","*/20 * * * * *",60*60000,"60MinPrice");
-		scheduledSMAUpdate.initScheduledJobs("APT","USD","*/20 * * * * *",90*60000,"90MinPrice");
 		
 		
-		const scheduledBuySellDifferential = require('./scheduledFunctions/updateBuySellDifferential');
-
-		scheduledBuySellDifferential.initScheduledJobs("ETH","USD","*/20 * * * * *",25000,"25SecDiff");
-		scheduledBuySellDifferential.initScheduledJobs("ETH","USD","*/20 * * * * *",5*60000,"5MinDiff");
-		scheduledBuySellDifferential.initScheduledJobs("ETH","USD","*/20 * * * * *",10*60000,"10MinDiff");
-		scheduledBuySellDifferential.initScheduledJobs("ETH","USD","*/20 * * * * *",90*60000,"90MinDiff");
-		scheduledBuySellDifferential.initScheduledJobs("ETH","USD","*/20 * * * * *",6*60*60000,"6HourDiff");
-
-		scheduledBuySellDifferential.initScheduledJobs("DOT","USD","*/20 * * * * *",25000,"25SecDiff");
-		scheduledBuySellDifferential.initScheduledJobs("DOT","USD","*/20 * * * * *",5*60000,"5MinDiff");
-		scheduledBuySellDifferential.initScheduledJobs("DOT","USD","*/20 * * * * *",10*60000,"10MinDiff");
-		scheduledBuySellDifferential.initScheduledJobs("DOT","USD","*/20 * * * * *",90*60000,"90MinDiff");
-		scheduledBuySellDifferential.initScheduledJobs("DOT","USD","*/20 * * * * *",6*60*60000,"6HourDiff");
-
-		scheduledBuySellDifferential.initScheduledJobs("ATOM","USD","*/20 * * * * *",25000,"25SecDiff");
-		scheduledBuySellDifferential.initScheduledJobs("ATOM","USD","*/20 * * * * *",5*60000,"5MinDiff");
-		scheduledBuySellDifferential.initScheduledJobs("ATOM","USD","*/20 * * * * *",10*60000,"10MinDiff");
-		scheduledBuySellDifferential.initScheduledJobs("ATOM","USD","*/20 * * * * *",90*60000,"90MinDiff");
-		scheduledBuySellDifferential.initScheduledJobs("ATOM","USD","*/20 * * * * *",6*60*60000,"6HourDiff");
-
-		scheduledBuySellDifferential.initScheduledJobs("APT","USD","*/20 * * * * *",25000,"25SecDiff");
-		scheduledBuySellDifferential.initScheduledJobs("APT","USD","*/20 * * * * *",5*60000,"5MinDiff");
-		scheduledBuySellDifferential.initScheduledJobs("APT","USD","*/20 * * * * *",10*60000,"10MinDiff");
-		scheduledBuySellDifferential.initScheduledJobs("APT","USD","*/20 * * * * *",90*60000,"90MinDiff");
-		scheduledBuySellDifferential.initScheduledJobs("APT","USD","*/20 * * * * *",6*60*60000,"6HourDiff");
+		const scheduledUpdate = require('./scheduledFunctions/updateMonitor');
 		
-		const scheduledBSDSMA = require('./scheduledFunctions/updateBuySellDifferential');
+		scheduledUpdate.initScheduledJobs("*/20 * * * * *");
 		
 		/*
 		05 min sma
@@ -141,8 +80,6 @@ try{
 		
 		//Maybe I should have a table inside of the database for this system consisting of all of the coins monitored and then automate the whole spinning up of these scheduled processes
 		
-		scheduledBSDSMA.initScheduledJobs("ETH","USD","*/20 * * * * *",5*60000,"5MinDiffSMA","25SecDiff");
-		scheduledBSDSMA.initScheduledJobs("ETH","USD","*/20 * * * * *",10*60000,"10MinDiffSMA","25SecDiff");
 		
 		
 		

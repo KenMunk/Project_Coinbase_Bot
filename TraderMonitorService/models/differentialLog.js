@@ -1,12 +1,8 @@
 const mongoose = require('mongoose');
 
 const differentialLog = new mongoose.Schema({
-	crypto: {
-		type: String,
-		required: true
-	},
-	currency: {
-		type: String,
+	TargetCrypto: {
+		type: Schema.Types.ObjectId,
 		required: true
 	},
 	timestamp: {
