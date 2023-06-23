@@ -2,14 +2,18 @@ const CronJob = require("node-cron");
 const PriceDensityLog = require('../models/PriceDensityLog');
 const PriceLog = require('../models/pricelog');
 
+exports.update = (target, cryptoType, currencyType, expectedCount, hoursBack) => {
+	
+}
+
 exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, expectedCount, hoursBack) => {
   const scheduledJobFunction = CronJob.schedule(""+updateInterval, () => {
 	
 	const timeOfNow = (Date.now().valueOf())
 	
 	const currentDataScore = {
-		crypto: cryptoType,
-		currency: currencyType,
+		TargetCrypto: target,
+		timestamp: timeOfNow,
 		dataScore: 0
 	};
 	

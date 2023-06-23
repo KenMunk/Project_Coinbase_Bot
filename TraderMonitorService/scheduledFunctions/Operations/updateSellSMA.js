@@ -1,18 +1,14 @@
 const CronJob = require("node-cron");
-const SMALog = require('../models/smaLog');
-const PriceLog = require('../models/pricelog');
+const SMALog = require('../../models/smaLog');
+const PriceLog = require('../../models/pricelog');
 
-exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, timeBack, smaType) => {	
-  const scheduledJobFunction = CronJob.schedule(""+updateInterval, () => {
-	
-	const timeOfNow = (Date.now().valueOf())
+exports.update = (target, cryptoType, currencyType, timeOfNow, timeBack, smaType) => {
 	
 	const currentDataScore = {
-		crypto: cryptoType,
-		currency: currencyType,
+		TargetCrypto: target,
 		timestamp: timeOfNow,
 		smaRange: timeBack,
-		smaType: smaType,
+		smaType: cryptoType + "-" + currencyType + "-" + smaType,
 		value: 0
 		
 	};
@@ -22,8 +18,7 @@ exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, timeBack,
 		
 		//*
 		
-		const history = PriceLog.find({timestamp: {$gte: timeOfNow-timeBack}, crypto: cryptoType,
-		currency: currencyType}).then(function(doc){
+		const history = PriceLog.find({timestamp: {$gte: timeOfNow-timeBack}, TargetCrypto: target}).then(function(doc){
 			//console.log("History is "+doc.length+ " entries");
 			
 			
@@ -49,10 +44,4 @@ exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, timeBack,
 	} catch (error){
 			console.log("Failed to create " + smaType + " mongo data for " + smaRefData + " due to error:\n"+error)
 	}
-		
-}, []);
-	
-  
-
-  scheduledJobFunction.start();
 }

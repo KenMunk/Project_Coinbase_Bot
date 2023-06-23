@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const {Schema} = mongoose;
+
 const smaLog = new mongoose.Schema({
 	TargetCrypto: {
 		type: Schema.Types.ObjectId,
