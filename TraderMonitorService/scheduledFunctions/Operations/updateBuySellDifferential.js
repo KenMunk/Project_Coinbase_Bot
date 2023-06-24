@@ -1,18 +1,14 @@
 const CronJob = require("node-cron");
-const DiffLog = require('../models/differentialLog');
-const PriceLog = require('../models/pricelog');
+const DiffLog = require('../../models/differentialLog');
+const PriceLog = require('../../models/pricelog');
 
-exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, timeBack, diffType) => {	
-  const scheduledJobFunction = CronJob.schedule(""+updateInterval, () => {
-	
-	const timeOfNow = (Date.now().valueOf())
+exports.update = (target, cryptoType, currencyType, timeOfNow, timeBack, diffType) => {
 	
 	const currentDataScore = {
-		crypto: cryptoType,
-		currency: currencyType,
+		TargetCrypto: target,
 		timestamp: timeOfNow,
 		differentialSize: timeBack,
-		diffType: diffType,
+		diffType: cryptoType + "-" + currencyType + "-" + diffType,
 		value: 0
 		
 	};
@@ -22,8 +18,7 @@ exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, timeBack,
 		
 		//*
 		
-		const history = PriceLog.find({timestamp: {$gte: timeOfNow-timeBack}, crypto: cryptoType,
-		currency: currencyType}).then(function(doc){
+		const history = PriceLog.find({timestamp: {$gte: timeOfNow-timeBack}, TargetCrypto: target}).then(function(doc){
 			//console.log("History is "+doc.length+ " entries");
 			//console.log("History is: \n" + doc);
 			//console.log("First in history is:\n" +doc[0]);
@@ -47,10 +42,4 @@ exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, timeBack,
 	} catch (error){
 			console.log("Failed to create " + diffType + " mongo data for " + smaRefData + " due to error:\n"+error)
 	}
-		
-}, []);
-	
-  
-
-  scheduledJobFunction.start();
 }
