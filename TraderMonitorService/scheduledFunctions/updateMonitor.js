@@ -1,6 +1,7 @@
 const price = require("./Operations/checkPrices");
 const sellSMA = require("./Operations/updateSellSMA");
 const BSDiff = require("./Operations/updateBuySellDifferential");
+const density = require("./Operations/checkDataDensity");
 
 const CronJob = require("node-cron");
 const TargetCrypto = require('../models/TargetCrypto');
@@ -36,6 +37,15 @@ exports.initScheduledJobs = (updateInterval) => {
 							doc[currencyCombo].crypto,
 							doc[currencyCombo].currency,
 							timeOfNow
+						);
+						
+						density.update(
+							doc[currencyCombo]._id,
+							doc[currencyCombo].crypto,
+							doc[currencyCombo].currency,
+							timeOfNow,
+							1260,
+							7
 						);
 						
 						sellSMA.update(

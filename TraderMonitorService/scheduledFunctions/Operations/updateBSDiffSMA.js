@@ -1,7 +1,7 @@
 const CronJob = require("node-cron");
-const SMALog = require('../models/smaLog');
-const DiffLog = require('../models/differentialLog');
-const PriceLog = require('../models/pricelog');
+const SMALog = require('../../models/smaLog');
+const DiffLog = require('../../models/differentialLog');
+const PriceLog = require('../../models/pricelog');
 
 exports.initScheduledJobs = (cryptoType, currencyType, updateInterval, timeBack, smaType, diffType) => {	
   const scheduledJobFunction = CronJob.schedule(""+updateInterval, () => {

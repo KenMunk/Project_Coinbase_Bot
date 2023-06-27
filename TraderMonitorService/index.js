@@ -47,13 +47,15 @@ try{
 
 
 		app.get("/", (req, res) => {
-			res.send("");
+			res.send("System is alive");
 			console.log("Request detected");
 		});
 		
 		const targets = require('./routes/MonitorTarget');
+		const history = require('./routes/history');
 		
 		app.use('/target', targets);
+		app.use('/log', history);
 
 		console.log("Route Setup Process Complete");
 		// End Route Imports
