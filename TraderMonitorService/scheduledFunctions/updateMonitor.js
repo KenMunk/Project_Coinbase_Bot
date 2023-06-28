@@ -32,6 +32,10 @@ exports.initScheduledJobs = (updateInterval) => {
 						
 						let comboID = doc[currencyCombo]._id
 						
+						//[Pivot 6-27] -- First we initialize an empty json object that'll get passed around
+						var trackerEntry = {};
+						
+						//Then the price update will return price update data which will get merged into the 
 						price.updatePrice(
 							doc[currencyCombo]._id,
 							doc[currencyCombo].crypto,
