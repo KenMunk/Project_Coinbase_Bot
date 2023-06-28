@@ -9,7 +9,8 @@ exports.update = (target, cryptoType, currencyType, timeOfNow, timeBack, smaType
 		timestamp: timeOfNow,
 		smaRange: timeBack,
 		smaType: cryptoType + "-" + currencyType + "-" + smaType,
-		value: 0
+		value: 0,
+		[cryptoType + "-" + currencyType + "-" + smaType]: 0
 		
 	};
 	
@@ -27,9 +28,11 @@ exports.update = (target, cryptoType, currencyType, timeOfNow, timeBack, smaType
 				//*
 				doc.forEach((currentValue, index) => {
 					currentDataScore.value += currentValue.sell;
+					
 				});
 				
 				currentDataScore.value /= doc.length;
+				currentDataScore[cryptoType + "-" + currencyType + "-" + smaType] += currentDataScore.value;
 				
 				console.log(currentDataScore);
 				

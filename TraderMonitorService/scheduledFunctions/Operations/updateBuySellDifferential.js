@@ -9,7 +9,8 @@ exports.update = (target, cryptoType, currencyType, timeOfNow, timeBack, diffTyp
 		timestamp: timeOfNow,
 		differentialSize: timeBack,
 		diffType: cryptoType + "-" + currencyType + "-" + diffType,
-		value: 0
+		value: 0,
+		[cryptoType + "-" + currencyType + "-" + diffType]: 0
 		
 	};
 	
@@ -28,6 +29,9 @@ exports.update = (target, cryptoType, currencyType, timeOfNow, timeBack, diffTyp
 				
 				//*
 				currentDataScore.value = (doc[0].sell - doc[doc.length -1].buy)/doc[doc.length -1].buy;
+				
+				
+				currentDataScore[cryptoType + "-" + currencyType + "-" + diffType] += currentDataScore.value;
 				
 				console.log(currentDataScore);
 				
