@@ -2,6 +2,12 @@ const CronJob = require("node-cron");
 const PriceDensityLog = require('../../models/PriceDensityLog');
 const PriceLog = require('../../models/pricelog');
 
+async function merge(originalJSON, target, cryptoType, currencyType, timeOfNow, expectedCount, hoursBack){
+	
+}
+
+exports.merge = merge;
+
 exports.update = (target, cryptoType, currencyType, timeOfNow, expectedCount, hoursBack) => {
 	
 	const currentDataScore = {

@@ -6,6 +6,28 @@ const density = require("./Operations/checkDataDensity");
 const CronJob = require("node-cron");
 const TargetCrypto = require('../models/TargetCrypto');
 
+async function update( targetID, crypto, currency, timestamp){
+	
+	//[Pivot 6-27] -- First we initialize an empty json object that'll get passed around
+	var trackerEntry = {};
+	
+	trackerEntry = await price.update(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp
+	);
+	
+	if(trackerEntry != {}){
+		console.log("async update successful\n" + JSON.stringify(trackerEntry));
+	}
+	else{
+		//Announce error and do nothing
+	}
+	//Then the price update will return price update data which will get merged into the 
+}
+
 exports.initScheduledJobs = (updateInterval) => {
 	const scheduledJobFunction = CronJob.schedule(""+updateInterval,() => {
 		
@@ -32,10 +54,14 @@ exports.initScheduledJobs = (updateInterval) => {
 						
 						let comboID = doc[currencyCombo]._id
 						
-						//[Pivot 6-27] -- First we initialize an empty json object that'll get passed around
-						var trackerEntry = {};
+						update(
+							doc[currencyCombo]._id,
+							doc[currencyCombo].crypto,
+							doc[currencyCombo].currency,
+							timeOfNow
+						);
 						
-						//Then the price update will return price update data which will get merged into the 
+						/*
 						price.updatePrice(
 							doc[currencyCombo]._id,
 							doc[currencyCombo].crypto,
@@ -149,6 +175,8 @@ exports.initScheduledJobs = (updateInterval) => {
 							6*60*60000,
 							6*60+"MinBSDiff"
 						);
+						
+						*/
 						//console.log("Combo ID is: " + comboID);
 					}
 					
