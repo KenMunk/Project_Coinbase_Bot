@@ -70,7 +70,7 @@ try{
 		
 		const scheduledUpdate = require('./scheduledFunctions/updateMonitor');
 		
-		scheduledUpdate.initScheduledJobs("*/5 * * * * *");
+		scheduledUpdate.initScheduledJobs("*/10 * * * * *");
 		
 		/*
 		05 min sma

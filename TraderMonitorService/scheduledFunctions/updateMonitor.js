@@ -29,7 +29,7 @@ async function update( targetID, crypto, currency, timestamp){
 			crypto,
 			currency,
 			timestamp,
-			1260*12,
+			1260*6,
 			7
 		);
 		
