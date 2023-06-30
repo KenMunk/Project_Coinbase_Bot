@@ -60,7 +60,7 @@ async function update( targetID, crypto, currency, timestamp){
 		}
 		
 		try{
-			const newEntry = await new TrackerLog(trackerEntry).save();
+			const newEntry = await new TrackerLog(await trackerEntry).save();
 			console.log("async update successful\n" + JSON.stringify(trackerEntry));
 		}
 		catch(error){
