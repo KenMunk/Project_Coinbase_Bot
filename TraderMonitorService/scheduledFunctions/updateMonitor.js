@@ -5,6 +5,7 @@ const density = require("./Operations/checkDataDensity");
 
 const CronJob = require("node-cron");
 const TargetCrypto = require('../models/TargetCrypto');
+const TrackerLog = require('../models/trackerLog');
 
 async function update( targetID, crypto, currency, timestamp){
 	
@@ -18,6 +19,148 @@ async function update( targetID, crypto, currency, timestamp){
 		currency,
 		timestamp
 	);
+	
+	trackerEntry = await density.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		1260,
+		7
+	);
+	
+	trackerEntry = await sellSMA.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		1*5*60000,
+		"5MinSellSMA"
+	);
+	
+	trackerEntry = await sellSMA.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		5*5*60000,
+		"25MinSellSMA"
+	);
+	
+	trackerEntry = await sellSMA.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		10*5*60000,
+		10*5+"MinSellSMA"
+	);
+	
+	trackerEntry = await sellSMA.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		30*5*60000,
+		30*5+"MinSellSMA"
+	);
+	
+	trackerEntry = await sellSMA.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		60*5*60000,
+		60*5+"MinSellSMA"
+	);
+	
+	trackerEntry = await sellSMA.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		90*5*60000,
+		90*5+"MinSellSMA"
+	);
+	
+	trackerEntry = await BSDiff.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		1*5*60000,
+		1*5+"MinBSDiff"
+	);
+	
+	trackerEntry = await BSDiff.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		5*5*60000,
+		5*5+"MinBSDiff"
+	);
+	
+	trackerEntry = await BSDiff.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		10*5*60000,
+		10*5+"MinBSDiff"
+	);
+	
+	trackerEntry = await BSDiff.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		30*5*60000,
+		30*5+"MinBSDiff"
+	);
+	
+	trackerEntry = await BSDiff.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		60*5*60000,
+		60*5+"MinBSDiff"
+	);
+	
+	trackerEntry = await BSDiff.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		90*5*60000,
+		90*5+"MinBSDiff"
+	);
+	
+	trackerEntry = await BSDiff.merge(
+		trackerEntry,
+		targetID,
+		crypto,
+		currency,
+		timestamp,
+		6*60*60000,
+		6*60+"MinBSDiff"
+	);
+	
+	const newEntry = await new TrackerLog(trackerEntry).save();
 	
 	if(trackerEntry != {}){
 		console.log("async update successful\n" + JSON.stringify(trackerEntry));

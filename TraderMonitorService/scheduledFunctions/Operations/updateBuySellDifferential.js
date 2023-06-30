@@ -1,6 +1,25 @@
 const CronJob = require("node-cron");
 const DiffLog = require('../../models/differentialLog');
 const PriceLog = require('../../models/pricelog');
+const TrackerLog = require('../../models/trackerLog');
+
+async function merge(originalJSON, target, cryptoType, currencyType, timeOfNow, timeBack, diffType){
+	
+	var currentDataScore = Object.assign(originalJSON);
+	
+	const history = await TrackerLog.find({timestamp: {$gte: timeOfNow-timeBack}, TargetCrypto: target});
+	
+	if(history.length > 0){
+		
+		currentDataScore[diffType] = (history[0].sell - history[history.length -1].buy)/history[history.length -1].buy;
+		
+	}
+	
+	
+	return(currentDataScore);
+}
+
+exports.merge = merge;
 
 exports.update = (target, cryptoType, currencyType, timeOfNow, timeBack, diffType) => {
 	

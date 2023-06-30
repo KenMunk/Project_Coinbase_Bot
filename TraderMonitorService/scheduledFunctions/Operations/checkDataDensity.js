@@ -1,9 +1,16 @@
 const CronJob = require("node-cron");
 const PriceDensityLog = require('../../models/PriceDensityLog');
 const PriceLog = require('../../models/pricelog');
+const TrackerLog = require('../../models/trackerLog');
 
 async function merge(originalJSON, target, cryptoType, currencyType, timeOfNow, expectedCount, hoursBack){
+	var currentDataScore = Object.assign(originalJSON);
 	
+	const history = await TrackerLog.find({timestamp: {$gte: timeOfNow-hoursBack*60*60000}, TargetCrypto: target});
+	
+	currentDataScore.dataScore = (history.length+1)/expectedCount;
+	
+	return(currentDataScore);
 }
 
 exports.merge = merge;
