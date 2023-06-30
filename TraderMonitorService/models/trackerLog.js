@@ -19,6 +19,8 @@ const trackerLog = new mongoose.Schema({
 		type: Number,
 		required: true
 	}
+},{
+    strict: false
 });
 
 module.exports = mongoose.model('TrackerLog', trackerLog);
