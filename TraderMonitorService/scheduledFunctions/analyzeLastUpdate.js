@@ -7,16 +7,18 @@ const CronJob = require("node-cron");
 const TargetCrypto = require('../models/TargetCrypto');
 const TrackerLog = require('../models/trackerLog');
 
-async function update( targetID, targetCrypto, targetCurrency, timestamp){
+async function update( targetID, crypto, currency, timestamp){
 	
 	//[Pivot 6-27] -- First we initialize an empty json object that'll get passed around
 	var trackerEntry = {};
 	
+	sleep(4000);
+	
 	trackerEntry = await price.update(
 		trackerEntry,
 		targetID,
-		targetCrypto,
-		targetCurrency,
+		crypto,
+		currency,
 		timestamp
 	);
 	
@@ -26,8 +28,8 @@ async function update( targetID, targetCrypto, targetCurrency, timestamp){
 		trackerEntry = await density.merge(
 			trackerEntry,
 			targetID,
-			targetCrypto,
-			targetCurrency,
+			crypto,
+			currency,
 			timestamp,
 			1260*6,
 			7
@@ -40,43 +42,32 @@ async function update( targetID, targetCrypto, targetCurrency, timestamp){
 			trackerEntry = await sellSMA.merge(
 				trackerEntry,
 				targetID,
-				targetCrypto,
-				targetCurrency,
+				crypto,
+				currency,
 				timestamp,
-				(intervals[index]*5)*60000,
-				(intervals[index]*5)+"MinSellSMA"
+				(1*5)*60000,
+				(1*5)+"Min-"+(intervals[index]*5)+"MinSMA"+"-SMA",
+				(intervals[index]*5)+"MinSMA"
+				
 			);
 			
+			/*
 			trackerEntry = await BSDiff.merge(
 				trackerEntry,
 				targetID,
-				targetCrypto,
-				targetCurrency,
+				crypto,
+				currency,
 				timestamp,
 				(intervals[index]*5)*60000,
 				(intervals[index]*5)+"MinBSDiff"
 			);
+			*/
 			
 		}
 		
 		try{
 			const newEntry = await new TrackerLog(await trackerEntry).save();
-			await TargetCrypto.updateOne(
-				{
-					crypto: targetCrypto, 
-					currency: targetCurrency
-				}, 
-				{
-					$set: {
-						lastUpdated: timestamp
-					}
-				},
-				{
-					upsert: true
-				}
-			);
 			console.log("async update successful\n" + JSON.stringify(trackerEntry));
-			
 		}
 		catch(error){
 			console.log("async update failed\n" + error)
