@@ -71,17 +71,17 @@ try{
 		const scheduledUpdate = require('./scheduledFunctions/updateMonitor');
 		const scheduledAnalysis = require('./scheduledFunctions/analyzeLastUpdate');
 		
-		scheduledUpdate.initScheduledJobs("*/10 * * * * *");
+		scheduledUpdate.initScheduledJobs("*/30 * * * * *");
 		
-		scheduledAnalysis.initScheduledJobs("*/10 * * * * *", 5);
+		scheduledAnalysis.initScheduledJobs("*/30 * * * * *", 5);
 		
-		scheduledAnalysis.initScheduledJobs("*/10 * * * * *", 10);
+		scheduledAnalysis.initScheduledJobs("*/30 * * * * *", 10);
 		
-		scheduledAnalysis.initScheduledJobs("*/10 * * * * *", 30);
+		scheduledAnalysis.initScheduledJobs("*/30 * * * * *", 30);
 		
-		scheduledAnalysis.initScheduledJobs("*/10 * * * * *", 60);
+		scheduledAnalysis.initScheduledJobs("*/30 * * * * *", 60);
 		
-		scheduledAnalysis.initScheduledJobs("*/10 * * * * *", 90);
+		scheduledAnalysis.initScheduledJobs("*/30 * * * * *", 90);
 		
 		/*
 		05 min sma
