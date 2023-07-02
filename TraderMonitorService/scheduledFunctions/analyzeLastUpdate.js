@@ -15,7 +15,7 @@ async function update( targetID, crypto, currency, updateTime, interval){
 	//sleep(4000);
 	//await new Promise(r => setTimeout(r, 4000));
 	
-	var analysisSpan = 10;
+	var analysisSpan = 4;
 	
 	var analysisField = (analysisSpan*5)+"Min_"+(interval*5)+"MinBSDiff"+"_SMA";
 	
