@@ -4,12 +4,23 @@ const express = require('express');
 const TargetCrypto = require('../models/TargetCrypto');
 const TrackerLog = require('../models/trackerLog');
 
+const scheduledAnalysis = require('../scheduledFunctions/analyzeLastUpdate');
+
 const router = express.Router();
 
 const mongoose = require('mongoose');
 const ObjectID = require('mongodb').ObjectID;
 
-async function aggregateHistoryRows(startTime, targetID){
+async function aggregateHistoryRows(startTime, targetID, lastUpdate, cryptoTarget, currencyTarget){
+	
+	await scheduledAnalysis.update(
+		targetID,
+		cryptoTarget,
+		currencyTarget,
+		lastUpdate,
+		10
+	);
+	
 	const priceHistory = await TrackerLog.find({
 		timestamp: {$gte: startTime},
 		TargetCrypto: targetID
@@ -36,8 +47,9 @@ router.all('/getHistory/:crypto/:currency/:hoursBack', (req, res) => {
 		if(result.length > 0){
 			
 			const targetID = result[0]._id;
+			const lastUpdate = result[0].lastUpdated;
 			
-			aggregateHistoryRows(timeOfNow-timeBack, targetID).then(resultHistory => {
+			aggregateHistoryRows(timeOfNow-timeBack, targetID, lastUpdate).then(resultHistory => {
 				const jsonCSV = converter.json2csv(resultHistory).then(resultCSV =>
 				{
 					if(resultHistory.length>0){

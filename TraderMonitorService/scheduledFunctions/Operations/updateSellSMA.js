@@ -11,18 +11,27 @@ async function merge(originalJSON, target, cryptoType, currencyType, timeOfNow, 
 	
 	//console.log("History  for " + cryptoType + "\n" + history);
 	
+	var totalLength = history.length;
+	
 	if(history.length > 0){
 		
 		currentDataScore[smaType] = 0;
 		//*
 		history.forEach((currentValue, index) => {
-			currentDataScore[smaType] += currentValue[smaField];
+			if(smaField in currentValue){
+				currentDataScore[smaType] += currentValue[smaField];
+			}
+			else{
+				totalLength--;
+			}
 			
 		});
 		
+		console.log(currentDataScore);
+		
 		currentDataScore[smaType] /= history.length;
 		
-		//console.log(currentDataScore);
+		console.log(currentDataScore);
 		
 	}
 	

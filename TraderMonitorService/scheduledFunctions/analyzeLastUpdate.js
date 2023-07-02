@@ -7,85 +7,55 @@ const CronJob = require("node-cron");
 const TargetCrypto = require('../models/TargetCrypto');
 const TrackerLog = require('../models/trackerLog');
 
-async function update( targetID, crypto, currency, timestamp){
+async function update( targetID, crypto, currency, updateTime, interval){
 	
 	//[Pivot 6-27] -- First we initialize an empty json object that'll get passed around
 	var trackerEntry = {};
 	
-	sleep(4000);
+	//sleep(4000);
+	//await new Promise(r => setTimeout(r, 4000));
 	
-	trackerEntry = await price.update(
+	var analysisSpan = 10;
+	
+	var analysisField = (analysisSpan*5)+"Min_"+(interval*5)+"MinBSDiff"+"_SMA";
+	
+	console.log("Computing " + analysisField + " for " + targetID + " for timestamp " + updateTime);
+	
+	trackerEntry = await sellSMA.merge(
 		trackerEntry,
 		targetID,
 		crypto,
 		currency,
-		timestamp
+		updateTime,
+		(analysisSpan*5)*60000,
+		analysisField,
+		(interval*5)+"MinBSDiff"
 	);
 	
-	
-	if(trackerEntry != {}){
-		
-		trackerEntry = await density.merge(
-			trackerEntry,
-			targetID,
-			crypto,
-			currency,
-			timestamp,
-			1260*6,
-			7
+	try{
+		await TrackerLog.updateOne(
+			{
+				TargetCrypto: targetID,
+				timestamp: updateTime
+			},
+			{
+				$set: trackerEntry
+			},
+			{
+				upsert: true
+			}
 		);
-		
-		var intervals = [1,5,10,30,60,90];
-		
-		
-		for(index in intervals){
-			trackerEntry = await sellSMA.merge(
-				trackerEntry,
-				targetID,
-				crypto,
-				currency,
-				timestamp,
-				(1*5)*60000,
-				(1*5)+"Min-"+(intervals[index]*5)+"MinSMA"+"-SMA",
-				(intervals[index]*5)+"MinSMA"
-				
-			);
-			
-			/*
-			trackerEntry = await BSDiff.merge(
-				trackerEntry,
-				targetID,
-				crypto,
-				currency,
-				timestamp,
-				(intervals[index]*5)*60000,
-				(intervals[index]*5)+"MinBSDiff"
-			);
-			*/
-			
-		}
-		
-		try{
-			const newEntry = await new TrackerLog(await trackerEntry).save();
-			console.log("async update successful\n" + JSON.stringify(trackerEntry));
-		}
-		catch(error){
-			console.log("async update failed\n" + error)
-		}
+		console.log("async update successful\n" + JSON.stringify(trackerEntry));
+	}
+	catch(error){
+		console.log("async update failed\n" + error)
 	}
 	
-	
-	if(trackerEntry != {}){
-	}
-	else{
-		//Announce error and do nothing
-	}
-	//Then the price update will return price update data which will get merged into the 
 }
 
+exports.update = update;
 
-
-exports.initScheduledJobs = (updateInterval) => {
+exports.initScheduledJobs = (updateInterval, interval) => {
 	const scheduledJobFunction = CronJob.schedule(""+updateInterval,() => {
 		
 		const timeOfNow = (Date.now().valueOf())
@@ -115,7 +85,8 @@ exports.initScheduledJobs = (updateInterval) => {
 							doc[currencyCombo]._id,
 							doc[currencyCombo].crypto,
 							doc[currencyCombo].currency,
-							timeOfNow
+							doc[currencyCombo].lastUpdated,
+							interval
 						);
 						
 					}
@@ -123,7 +94,6 @@ exports.initScheduledJobs = (updateInterval) => {
 				}
 				
 			}).catch((error) => function(error){
-				
 				
 				console.error("Scheduled job UpdateMonitor failed at " + timeOfNow.toString() + " when getting tracked currencies for error: \n"+error);
 				
