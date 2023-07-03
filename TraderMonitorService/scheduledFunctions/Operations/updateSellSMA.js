@@ -19,7 +19,12 @@ async function merge(originalJSON, target, cryptoType, currencyType, timeOfNow, 
 		//*
 		history.forEach((currentValue, index) => {
 			if(smaField in currentValue){
-				currentDataScore[smaType] += currentValue[smaField];
+				if(!isNaN(currentValue[smaField]) && currentValue[smaField] != null){
+					currentDataScore[smaType] += currentValue[smaField];
+				}
+				else{
+					totalLength--;
+				}
 			}
 			else{
 				totalLength--;
