@@ -26,8 +26,16 @@ async function aggregateHistoryRows(startTime, targetID, lastUpdate, cryptoTarge
 		TargetCrypto: targetID
 	});
 	
+	var outputHistory = [];
 	
-	return(priceHistory);
+	priceHistory.forEach((element, index) => {
+		if(index%20 == 0){
+			outputHistory.push([element]);
+		}
+	});
+	
+	
+	return(outputHistory);
 }
 
 router.all('/getHistory/:crypto/:currency/:hoursBack', (req, res) => {
