@@ -64,7 +64,7 @@ router.all('/getHistory/:crypto/:currency/:hoursBack', (req, res) => {
 						
 						return res.status(200).json({
 							message: "Data available for combo: " + cryptoString + "-"+currencyString+ " when searching with id " + targetID,
-							csvData: resultCSV,
+							csvData: resultCSV.replaceAll("\\n",'\r\n'),
 							data: resultHistory
 						});
 					}
