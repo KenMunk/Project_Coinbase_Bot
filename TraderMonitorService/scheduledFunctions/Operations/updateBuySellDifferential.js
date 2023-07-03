@@ -11,7 +11,7 @@ async function merge(originalJSON, target, cryptoType, currencyType, timeOfNow, 
 	
 	if(history.length > 0){
 		
-		currentDataScore[diffType] = (currentDataScore[diffField[0]] - history[history.length -1][diffField[1]])/history[history.length -1][diffField[1]];
+		currentDataScore[diffType] = (currentDataScore[diffField[0]] - history[0][diffField[1]])/history[history.length -1][diffField[1]];
 		
 	}
 	

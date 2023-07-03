@@ -75,7 +75,7 @@ async function update( targetID, targetCrypto, targetCurrency, timestamp){
 					upsert: true
 				}
 			);
-			console.log("async update successful\n" + JSON.stringify(trackerEntry));
+			console.log("async update successful for " + targetCrypto + " \n" + JSON.stringify(trackerEntry));
 			
 		}
 		catch(error){
