@@ -73,15 +73,7 @@ try{
 		
 		scheduledUpdate.initScheduledJobs("*/30 * * * * *");
 		
-		scheduledAnalysis.initScheduledJobs("*/30 * * * * *", 5);
-		
-		scheduledAnalysis.initScheduledJobs("*/30 * * * * *", 10);
-		
-		scheduledAnalysis.initScheduledJobs("*/30 * * * * *", 30);
-		
-		scheduledAnalysis.initScheduledJobs("*/30 * * * * *", 60);
-		
-		scheduledAnalysis.initScheduledJobs("*/30 * * * * *", 90);
+		scheduledAnalysis.initScheduledJobs("*/30 * * * * *");
 		
 		/*
 		05 min sma

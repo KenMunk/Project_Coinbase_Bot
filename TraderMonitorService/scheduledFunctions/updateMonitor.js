@@ -46,18 +46,29 @@ async function update( targetID, targetCrypto, targetCurrency, timestamp){
 				(intervals[index]*5)*60000,
 				(intervals[index]*5)+"MinSellSMA"
 			);
-			
-			trackerEntry = await BSDiff.merge(
-				trackerEntry,
-				targetID,
-				targetCrypto,
-				targetCurrency,
-				timestamp,
-				(intervals[index]*5)*60000,
-				(intervals[index]*5)+"MinBSDiff"
-			);
-			
 		}
+		
+		trackerEntry = await BSDiff.merge(
+			trackerEntry,
+			targetID,
+			targetCrypto,
+			targetCurrency,
+			timestamp,
+			(1)*60000,
+			(1)+"MinBSDiff",
+			["sell","buy"]
+		);
+		
+		trackerEntry = await BSDiff.merge(
+			trackerEntry,
+			targetID,
+			targetCrypto,
+			targetCurrency,
+			timestamp,
+			(1)*60000,
+			(1)+"MinSDiff",
+			["sell","sell"]
+		);
 		
 		try{
 			const newEntry = await new TrackerLog(await trackerEntry).save();
@@ -79,7 +90,7 @@ async function update( targetID, targetCrypto, targetCurrency, timestamp){
 			
 		}
 		catch(error){
-			console.log("async update failed\n" + error)
+			console.log("async update successful for " + targetCrypto + " \n" + JSON.stringify(trackerEntry));
 		}
 	}
 	

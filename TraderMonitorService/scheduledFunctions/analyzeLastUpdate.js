@@ -7,7 +7,7 @@ const CronJob = require("node-cron");
 const TargetCrypto = require('../models/TargetCrypto');
 const TrackerLog = require('../models/trackerLog');
 
-async function update( targetID, crypto, currency, updateTime, interval){
+async function update( targetID, crypto, currency, updateTime, interval=1){
 	
 	//[Pivot 6-27] -- First we initialize an empty json object that'll get passed around
 	var trackerEntry = {};
@@ -15,22 +15,27 @@ async function update( targetID, crypto, currency, updateTime, interval){
 	//sleep(4000);
 	//await new Promise(r => setTimeout(r, 4000));
 	
-	var analysisSpan = 4;
 	
-	var analysisField = (analysisSpan*5)+"Min_"+(interval*5)+"MinBSDiff"+"_SMA";
 	
 	console.log("Computing " + analysisField + " for " + targetID + " for timestamp " + updateTime);
 	
-	trackerEntry = await sellSMA.merge(
-		trackerEntry,
-		targetID,
-		crypto,
-		currency,
-		updateTime,
-		(analysisSpan*5)*60000,
-		analysisField,
-		(interval*5)+"MinBSDiff"
-	);
+	var intervals = [1,5,10,30,60,90];
+	
+	
+	for(index in intervals){
+		var analysisField = (intervals[index]*5)+"Min_"+(interval)+"MinSDiff"+"_SMA";
+		
+		trackerEntry = await sellSMA.merge(
+			trackerEntry,
+			targetID,
+			crypto,
+			currency,
+			updateTime,
+			(intervals[index]*5)*60000,
+			analysisField,
+			(interval)+"MinSDiff"
+		);
+	}
 	
 	try{
 		await TrackerLog.updateOne(
@@ -45,10 +50,10 @@ async function update( targetID, crypto, currency, updateTime, interval){
 				upsert: true
 			}
 		);
-		console.log("async update successful\n" + JSON.stringify(trackerEntry));
+		console.log("async update successful for " + crypto + " \n" + JSON.stringify(trackerEntry));
 	}
 	catch(error){
-		console.log("async update failed\n" + error)
+		console.log("async update successful for " + crypto + " \n" + JSON.stringify(trackerEntry));
 	}
 	
 }
@@ -57,7 +62,7 @@ exports.update = update;
 
 exports.initScheduledJobs = (updateInterval, interval) => {
 	const scheduledJobFunction = CronJob.schedule(""+updateInterval,() => {
-		
+		//*
 		const timeOfNow = (Date.now().valueOf())
 		
 		try{
@@ -105,6 +110,7 @@ exports.initScheduledJobs = (updateInterval, interval) => {
 			
 		}
 		
+		//*/
 	}, []);
 	
 	scheduledJobFunction.start();

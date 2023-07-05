@@ -7,7 +7,7 @@ async function merge(originalJSON, target, cryptoType, currencyType, timeOfNow, 
 	
 	var currentDataScore = Object.assign(originalJSON);
 	
-	const history = await TrackerLog.find({timestamp: {$gte: timeOfNow-timeBack}, TargetCrypto: target});
+	var history = await TrackerLog.find({timestamp: {$gte: timeOfNow-timeBack}, TargetCrypto: target});
 	
 	//console.log("History  for " + cryptoType + "\n" + history);
 	
