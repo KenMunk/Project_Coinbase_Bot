@@ -46,6 +46,17 @@ async function update( targetID, targetCrypto, targetCurrency, timestamp){
 				(intervals[index]*5)*60000,
 				(intervals[index]*5)+"MinSellSMA"
 			);
+			
+			trackerEntry = await sellSMA.merge(
+				trackerEntry,
+				targetID,
+				targetCrypto,
+				targetCurrency,
+				timestamp,
+				(intervals[index]*5)*60000,
+				(intervals[index]*5)+"MinBuySMA",
+				"buy"
+			);
 		}
 		
 		trackerEntry = await BSDiff.merge(
