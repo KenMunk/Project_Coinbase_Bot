@@ -45,6 +45,9 @@ router.all('/getHistory/:crypto/:currency/:hoursBack', (req, res) => {
 	
 	const cryptoString = req.params.crypto+"";
 	const currencyString = req.params.currency+"";
+	
+	console.log("History requested for: " + cryptoString + "-" + currencyString);
+	
 	const timeBack = req.params.hoursBack*60*60000;
 	
 	const timeOfNow = (Date.now().valueOf())
