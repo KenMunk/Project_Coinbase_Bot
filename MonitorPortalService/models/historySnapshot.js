@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const {Schema}  = mongoose;
+
 const historySnapshot = new mongoose.Schema({
 	crypto: {
 		type: String,
@@ -10,8 +12,8 @@ const historySnapshot = new mongoose.Schema({
 		required: true
 	},
 	snapshot: {
-		any: {},
-		required: false
+		type: Schema.Types.Mixed,
+		required: true
 	}
 },{
     strict: false
