@@ -51,11 +51,6 @@ try{
 			console.log("Request detected - Trader Service Alive");
 		});
 		
-		const targets = require('./routes/MonitorTarget');
-		const history = require('./routes/history');
-		
-		app.use('/target', targets);
-		app.use('/log', history);
 		
 		console.log("Route Setup Process Complete");
 		// End Route Imports
