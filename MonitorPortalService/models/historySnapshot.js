@@ -11,7 +11,7 @@ const historySnapshot = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	snapshot: [{}]
+	snapshot: []
 },{
     strict: true
 });
