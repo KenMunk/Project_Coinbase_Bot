@@ -1,0 +1,9 @@
+Trader Dashboard Service -- Remote(Render)
+https://trader-dashboard-service.onrender.com/
+
+Trader Monitor Service -- local (kingdel nuc)
+http://192.168.12.164:4000
+
+Remote Monitor Tunnel -- local (kingdel nuc)
+http://192.168.12.164:3000
+
