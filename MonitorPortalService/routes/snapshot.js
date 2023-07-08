@@ -19,10 +19,18 @@ router.all('/:cryptoSymbol/:currencySymbol', (req, res) => {
 	
 	historySnapshot.find({crypto: cryptoSymbol, currency: currencySymbol}).then(function(result){
 		console.log(result);
-		return res.status(200).json({
-			message: "Data available for " + cryptoSymbol + "-" + currencySymbol,
-			data: result
-		})
+		if(result.length > 0){
+			return res.status(200).json({
+				message: "Data available for " + cryptoSymbol + "-" + currencySymbol,
+				data: result[0]
+			})
+		}
+		else{
+			return res.status(404).json({
+				message: "Data available for " + cryptoSymbol + "-" + currencySymbol,
+				data: {}
+			})
+		}
 		//wtf why doesn't the snapshot show up???
 	});
 	
