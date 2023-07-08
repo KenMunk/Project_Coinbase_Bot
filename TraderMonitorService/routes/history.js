@@ -8,7 +8,7 @@ const scheduledAnalysis = require('../scheduledFunctions/analyzeLastUpdate');
 
 const router = express.Router();
 
-async function aggregateHistoryRows(startTime, targetID, lastUpdate, cryptoTarget, currencyTarget, sampleEvery = 20){
+async function aggregateHistoryRows(startTime, targetID, lastUpdate, cryptoTarget, currencyTarget, sampleEvery = 1){
 	
 	await scheduledAnalysis.update(
 		targetID,
@@ -43,6 +43,7 @@ router.all('/getHistory/:crypto/:currency/:hoursBack/:sampleEvery', (req, res) =
 	const cryptoString = req.params.crypto+"";
 	const currencyString = req.params.currency+"";
 	const timeBack = req.params.hoursBack*60*60000;
+	const sampleEvery = req.params.sampleEvery;
 	
 	const timeOfNow = (Date.now().valueOf())
 		
@@ -61,7 +62,7 @@ router.all('/getHistory/:crypto/:currency/:hoursBack/:sampleEvery', (req, res) =
 				lastUpdate, 
 				cryptoString, 
 				currencyString,
-				req.params.sampleEvery
+				sampleEvery
 			).then(resultHistory => {
 				const jsonCSV = converter.json2csv(resultHistory).then(resultCSV =>
 				{
