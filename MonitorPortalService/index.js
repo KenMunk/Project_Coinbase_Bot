@@ -50,7 +50,11 @@ try{
 			res.send("");
 			console.log("Request detected - Trader Service Alive");
 		});
-
+		
+		const snapshot = require('./routes/snapshot');
+		
+		app.use('/snapshot', snapshot);
+		
 		console.log("Route Setup Process Complete");
 		// End Route Imports
 
