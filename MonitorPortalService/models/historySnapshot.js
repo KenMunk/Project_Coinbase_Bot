@@ -11,9 +11,12 @@ const historySnapshot = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	snapshot: {}
+	snapshot: {
+		type: Schema.Types.Mixed,
+		required: true
+	}
 },{
-    strict: false
+    strict: true
 });
 
 module.exports = mongoose.model('historySnapshot', historySnapshot);
