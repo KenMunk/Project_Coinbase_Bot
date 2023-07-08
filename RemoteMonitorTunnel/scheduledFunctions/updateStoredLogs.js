@@ -5,7 +5,7 @@ const historySnapshot = require('../models/historySnapshot');
 async function update(cryptoType, currencyType){
 	
 	//http://localhost:4000/log/getHistory/ETH/USD/12
-	var historyPath = process.env.PeerService+"log/getHistory/"+cryptoType+"/"+currencyType+"/12";
+	var historyPath = process.env.PeerService+"log/getHistory/"+cryptoType+"/"+currencyType+"/12/1";
 	
 	var history = (await fetch(historyPath));
 	
