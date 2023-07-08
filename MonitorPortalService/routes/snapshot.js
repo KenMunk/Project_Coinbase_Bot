@@ -17,7 +17,7 @@ router.all('/:cryptoSymbol/:currencySymbol', (req, res) => {
 	const cryptoSymbol = req.params.cryptoSymbol+"";
 	const currencySymbol = req.params.currencySymbol+"";
 	
-	historySnapshot.findOne({crypto: cryptoSymbol, currency: currencySymbol}, {}, {notInSchema: 1 }).then(function(result){
+	historySnapshot.find({crypto: cryptoSymbol, currency: currencySymbol}).then(function(result){
 		console.log(result);
 		return res.status(200).json({
 			message: "Data available for " + cryptoSymbol + "-" + currencySymbol,
