@@ -8,6 +8,9 @@ const historySnapshot = new mongoose.Schema({
 	currency: {
 		type: String,
 		required: true
+	},
+	snapshot: {
+		required: false
 	}
 },{
     strict: false
