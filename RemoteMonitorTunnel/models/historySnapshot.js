@@ -9,10 +9,7 @@ const historySnapshot = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	snapshot: {
-		type: Schema.Types.Mixed,
-		required: true
-	}
+	snapshot: [{}]
 },{
     strict: false
 });
