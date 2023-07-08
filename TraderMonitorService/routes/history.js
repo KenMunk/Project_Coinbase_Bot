@@ -8,9 +8,6 @@ const scheduledAnalysis = require('../scheduledFunctions/analyzeLastUpdate');
 
 const router = express.Router();
 
-const mongoose = require('mongoose');
-const ObjectID = require('mongodb').ObjectID;
-
 async function aggregateHistoryRows(startTime, targetID, lastUpdate, cryptoTarget, currencyTarget, sampleEvery = 20){
 	
 	await scheduledAnalysis.update(
