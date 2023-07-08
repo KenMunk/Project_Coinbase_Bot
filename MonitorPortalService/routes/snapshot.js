@@ -14,6 +14,9 @@ async function getHistory(cryptoSymbol, currencySymbol){
 
 router.all('/:cryptoSymbol/:currencySymbol', (req, res) => {
 	
+	const cryptoSymbol = req.params.cryptoSymbol+"";
+	const currencySymbol = req.params.currencySymbol+"";
+	
 	historySnapshot.findOne({crypto: cryptoSymbol, currency: currencySymbol}).then(function(result){
 		console.log(result);
 		return res.status(200).json({
