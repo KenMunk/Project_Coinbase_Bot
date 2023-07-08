@@ -62,20 +62,6 @@ try{
 		//Scheduled Task Imports
 		console.log("Initiating scheduled function setup process");
 		
-		//*
-		const scheduledFunctions = require('./scheduledFunctions/testscheduled');
-		
-		//scheduledFunctions.initScheduledJobs();
-		
-		const storedLogUpdate = require('./scheduledFunctions/updateStoredLogs');
-		
-		storedLogUpdate.initScheduledJobs("ETH","USD");
-		storedLogUpdate.initScheduledJobs("BCH","USD");
-		storedLogUpdate.initScheduledJobs("ATOM","USD");
-		storedLogUpdate.initScheduledJobs("DOT","USD");
-		storedLogUpdate.initScheduledJobs("XLM","USD");
-		storedLogUpdate.initScheduledJobs("APT","USD");
-		//*/
 		
 		
 		console.log("Scheduled function setup process complete");
