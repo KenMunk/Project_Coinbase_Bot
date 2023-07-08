@@ -16,7 +16,7 @@ const historySnapshot = new mongoose.Schema({
 		required: true
 	}
 },{
-    strict: false
+    strict: true
 });
 
 module.exports = mongoose.model('historySnapshot', historySnapshot);
