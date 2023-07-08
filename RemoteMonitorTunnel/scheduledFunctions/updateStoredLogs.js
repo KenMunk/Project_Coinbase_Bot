@@ -7,8 +7,14 @@ async function update(cryptoType, currencyType){
 	//http://localhost:4000/log/getHistory/ETH/USD/12
 	var historyPath = process.env.PeerService+"log/getHistory/"+cryptoType+"/"+currencyType+"/12";
 	
-	var history = (await fetch(historyPath)).json();
+	var history = (await fetch(historyPath));
 	
+	if(history.status != 200){
+		history = {};
+	}
+	else{
+		history = await history.json();
+	}
 	/*
 	await TrackerLog.updateOne(
 		{
@@ -32,7 +38,7 @@ async function update(cryptoType, currencyType){
 	var updateSnapshot = {
 		crypto: cryptoType,
 		currency: currencyType,
-		snapshot: await history
+		snapshot: history
 	};
 	
 	if(existingHistory.length == 0){
@@ -46,15 +52,16 @@ async function update(cryptoType, currencyType){
 			},
 			{
 				$set: updateSnapshot
-			},
-			{
-				upsert: true
 			}
 		);
 	}
 	
+	var updatedHistory = await historySnapshot.find({
+		crypto: cryptoType,
+		currency: currencyType
+	});
 	
-	console.log(JSON.stringify(updateSnapshot));
+	console.log(JSON.stringify(updatedHistory));
 }
 
 exports.initScheduledJobs = (cryptoType, currencyType) => {
