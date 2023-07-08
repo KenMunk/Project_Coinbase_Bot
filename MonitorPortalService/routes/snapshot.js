@@ -22,3 +22,6 @@ router.all('/:cryptoSymbol/:currencySymbol', (req, res) => {
 	});
 	
 });
+
+
+module.exports = router;
