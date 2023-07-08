@@ -12,7 +12,7 @@ async function getHistory(cryptoSymbol, currencySymbol){
 	
 }
 
-router.get('/:cryptoSymbol/:currencySymbol', (req, res) => {
+router.all('/:cryptoSymbol/:currencySymbol', (req, res) => {
 	
 	historySnapshot.findOne({crypto: cryptoSymbol, currency: currencySymbol}).then(function(result){
 		return res.status(200).json({
