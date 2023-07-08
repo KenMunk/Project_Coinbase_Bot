@@ -15,6 +15,7 @@ async function getHistory(cryptoSymbol, currencySymbol){
 router.all('/:cryptoSymbol/:currencySymbol', (req, res) => {
 	
 	historySnapshot.findOne({crypto: cryptoSymbol, currency: currencySymbol}).then(function(result){
+		console.log(result);
 		return res.status(200).json({
 			message: "Data available for " + cryptoSymbol + "-" + currencySymbol,
 			data: result
