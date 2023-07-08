@@ -23,6 +23,7 @@ router.all('/:cryptoSymbol/:currencySymbol', (req, res) => {
 			message: "Data available for " + cryptoSymbol + "-" + currencySymbol,
 			data: result
 		})
+		//wtf why doesn't the snapshot show up???
 	});
 	
 });
