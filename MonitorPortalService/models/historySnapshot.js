@@ -10,7 +10,7 @@ const historySnapshot = new mongoose.Schema({
 		required: true
 	},
 	snapshot: {
-		any: {}
+		any: {},
 		required: false
 	}
 },{
