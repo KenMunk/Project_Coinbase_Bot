@@ -8,7 +8,7 @@ const scheduledAnalysis = require('../scheduledFunctions/analyzeLastUpdate');
 
 const router = express.Router();
 
-async function aggregateHistoryRows(startTime, targetID, lastUpdate, cryptoTarget, currencyTarget, sampleEvery = 1){
+async function aggregateHistoryRows(startTime, targetID, lastUpdate, cryptoTarget, currencyTarget, sampleEvery = 2){
 	
 	await scheduledAnalysis.update(
 		targetID,
@@ -24,6 +24,8 @@ async function aggregateHistoryRows(startTime, targetID, lastUpdate, cryptoTarge
 	});
 	
 	var outputHistory = [];
+	
+	console.log("Price History Length:\n" + priceHistory.length);
 
 	
 	priceHistory.forEach((element, index) => {
@@ -32,6 +34,7 @@ async function aggregateHistoryRows(startTime, targetID, lastUpdate, cryptoTarge
 		}
 	});
 	
+	console.log("Output History Length:\n" + outputHistory.length);
 	
 	return(outputHistory);
 }
@@ -66,6 +69,8 @@ router.all('/getHistory/:crypto/:currency/:hoursBack/:sampleEvery', (req, res) =
 			).then(resultHistory => {
 				const jsonCSV = converter.json2csv(resultHistory).then(resultCSV =>
 				{
+					console.log("Result history length:\n"+resultHistory.length);
+					
 					if(resultHistory.length>0){
 						
 						return res.status(200).json({
@@ -122,7 +127,7 @@ router.all('/getHistory/:crypto/:currency/:hoursBack', (req, res) => {
 				lastUpdate, 
 				cryptoString, 
 				currencyString,
-				1
+				2
 			).then(resultHistory => {
 				const jsonCSV = converter.json2csv(resultHistory).then(resultCSV =>
 				{
