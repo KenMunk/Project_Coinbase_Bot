@@ -20,7 +20,7 @@ export const ColorSchemes = {
 				"rgba(255,255,255,0.1)"
 			],
 		},
-		text: {
+		font: {
 			headings: {
 				primary: [
 					"rgba(255,255,255,0.1)",
