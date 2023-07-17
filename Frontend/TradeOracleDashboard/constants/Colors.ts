@@ -9,6 +9,11 @@ export default {
 		tint: 				tintColorLight,
 		tabIconDefault: 	'#ccc',
 		tabIconSelected: 	tintColorLight,
+		backgroundColor: {
+			primary: 		"rgba(255,255,255,0.1)",
+			secondary: 		"rgba(255,255,255,0.1)",
+			tertiary: 		"rgba(255,255,255,0.1)",
+		},
 		view: {
 			primary: 		"rgba(255,255,255,0.1)",
 			secondary: 		"rgba(255,255,255,0.1)",
@@ -39,6 +44,11 @@ export default {
 		tint: 				tintColorDark,
 		tabIconDefault: 	'#ccc',
 		tabIconSelected: 	tintColorDark,
+		backgroundColor: {
+			primary: 		"#eee",
+			secondary: 		"#eee",
+			tertiary: 		"#eee",
+		},
 		view: {
 			primary: 		"#eee",
 			secondary: 		"#eee",

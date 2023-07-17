@@ -117,6 +117,11 @@ export const ColorSchemes = {
 };
 
 export const PageStyles = StyleSheet.create({
+	background: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'flex-start'
+	},
 	container: {
 		flex: 1,
 		alignItems: 'center',

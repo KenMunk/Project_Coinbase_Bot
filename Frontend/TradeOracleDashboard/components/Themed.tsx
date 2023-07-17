@@ -6,6 +6,7 @@
 import { Text as DefaultText, useColorScheme, View as DefaultView } from 'react-native';
 
 import Colors from '../constants/Colors';
+import {PageStyles} from '../styles/PageStyles';
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -41,4 +42,11 @@ export function View(props: ViewProps) {
   const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
+}
+
+export function Background(props: DefaultView['props']) {
+  const { style, ...otherProps } = props;
+  const backgroundColor = useThemeColor({ light: Colors.light.backgroundColor.primary, dark: Colors.dark.backgroundColor.primary }, 'background');
+	
+  return <DefaultView style={[{ backgroundColor }, style, PageStyles.background]} {...otherProps} />;
 }
