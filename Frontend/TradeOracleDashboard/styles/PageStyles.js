@@ -119,8 +119,15 @@ export const ColorSchemes = {
 export const PageStyles = StyleSheet.create({
 	background: {
 		flex: 1,
+		width: '100%',
 		alignItems: 'center',
 		justifyContent: 'flex-start'
+	},
+	statusBar: {
+		flex: 1,
+		width: '100%',
+		flexDirection: 'row',
+		justifyContent: 'space-between'
 	},
 	container: {
 		flex: 1,
