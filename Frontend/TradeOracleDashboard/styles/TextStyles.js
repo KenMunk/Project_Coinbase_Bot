@@ -13,7 +13,7 @@ export const TextStyles = StyleSheet.create({
 	header2: {
 		fontSize: 18,
 		fontWeight: 'bold'
-	}
+	},
 	text: {
 		fontSize: 12,
 		fontWeight: 'normal'

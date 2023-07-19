@@ -28,7 +28,7 @@ export const PageStyles = StyleSheet.create({
 		flexShrink: 0,
 		borderRightWidth: 1,
 		borderColor: Colors.light.backgroundColor.secondary,
-		paddingHorizontal: 15
+		paddingHorizontal: 0
 	},
 	contentSpace: {
 		flex: 1,
@@ -38,6 +38,18 @@ export const PageStyles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'flex-start'
 		
+	},
+	menuButton: {
+		flex: 1,
+		flexBasis: 'auto',
+		width: '100%',
+		flexGrow: 0,
+		flexShrink: 0,
+		paddingHorizontal: 15,
+		paddingTop: 5,
+		borderBottomWidth: 2,
+		borderColor: Colors.light.backgroundColor.secondary,
+		borderRadius: 10
 	},
 	container: {
 		flex: 1,
