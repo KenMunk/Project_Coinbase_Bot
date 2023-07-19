@@ -5,6 +5,8 @@ import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 
+import { Text, View, Background} from '../components/Themed';
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -12,7 +14,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: 'dasboard',
+  initialRouteName: '(tabs)',
 };
 
 export default function RootLayout() {

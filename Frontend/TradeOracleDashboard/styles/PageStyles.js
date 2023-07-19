@@ -129,6 +129,12 @@ export const PageStyles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between'
 	},
+	contentContainer: {
+		flex: 1,
+		width: '100%',
+		flexDirection: 'row',
+		justifyContent: 'flex-start'
+	},
 	container: {
 		flex: 1,
 		alignItems: 'center',
