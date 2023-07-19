@@ -48,5 +48,19 @@ export function Background(props: DefaultView['props']) {
   const { style, ...otherProps } = props;
   const backgroundColor = useThemeColor({ light: Colors.light.backgroundColor.primary, dark: Colors.dark.backgroundColor.primary }, 'background');
 	
-  return <DefaultView style={[{ backgroundColor }, style, PageStyles.background]} {...otherProps} />;
+  return <DefaultView style={[{ backgroundColor }, style, PageStyles.contentContainer]} {...otherProps} />;
+}
+
+export function SidePanel(props: DefaultView['props']){
+	const { style, ...otherProps } = props;
+	const backgroundColor = useThemeColor({ light: Colors.light.backgroundColor.primary, dark: Colors.dark.backgroundColor.primary }, 'background');
+
+	return <DefaultView style={[{ backgroundColor }, style, PageStyles.contentSelectionBar]} {...otherProps} />;
+}
+
+export function Content(props: DefaultView['props']){
+	const { style, ...otherProps } = props;
+	const backgroundColor = useThemeColor({ light: Colors.light.backgroundColor.primary, dark: Colors.dark.backgroundColor.primary }, 'background');
+
+	return <DefaultView style={[{ backgroundColor }, style, PageStyles.contentSpace]} {...otherProps} />;
 }

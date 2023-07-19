@@ -10,9 +10,9 @@ export default {
 		tabIconDefault: 	'#ccc',
 		tabIconSelected: 	tintColorLight,
 		backgroundColor: {
-			primary: 		"rgba(255,255,255,0.1)",
-			secondary: 		"rgba(255,255,255,0.1)",
-			tertiary: 		"rgba(255,255,255,0.1)",
+			primary: 		"rgba(255,255,255,1)",
+			secondary: 		"rgba(216,216,216,1)",
+			tertiary: 		"rgba(255,255,255,1)",
 		},
 		view: {
 			primary: 		"rgba(255,255,255,0.1)",

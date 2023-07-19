@@ -1,14 +1,19 @@
 import { StyleSheet } from 'react-native';
 
-import { Text, View } from '../../components/Themed';
+import { Text, View, Background, Content, SidePanel } from '../../components/Themed';
 
-import {PageStyles, ColorSchemes} from '../../styles/PageStyles';
+import {PageStyles} from '../../styles/PageStyles';
 
 export default function ChartsScreen() {
   return (
-    <View style={PageStyles.container}>
-      <Text style={PageStyles.title}>Charts</Text>
-    </View>
+    <Background>
+		<SidePanel>
+			<Text style={PageStyles.title}>Menu</Text>
+		</SidePanel>
+		<Content>
+			<Text style={PageStyles.title}>Charts</Text>
+		</Content>
+    </Background>
   );
 }
 

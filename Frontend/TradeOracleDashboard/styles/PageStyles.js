@@ -1,120 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const ColorSchemes = {
-	
-	light: {
-		view: {
-			primary: [
-				"rgba(255,255,255,0.1)",
-				"rgba(255,255,255,0.1)",
-				"rgba(255,255,255,0.1)"
-			],
-			secondary: [
-				"rgba(255,255,255,0.1)",
-				"rgba(255,255,255,0.1)",
-				"rgba(255,255,255,0.1)"
-			],
-			tertiary: [
-				"rgba(255,255,255,0.1)",
-				"rgba(255,255,255,0.1)",
-				"rgba(255,255,255,0.1)"
-			],
-		},
-		font: {
-			headings: {
-				primary: [
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)"
-				],
-				secondary: [
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)"
-				],
-				tertiary: [
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)"
-				],
-			},
-			content: {
-				primary: [
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)"
-				],
-				secondary: [
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)"
-				],
-				tertiary: [
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)"
-				],
-			},
-		}
-	},
-	dark: {
-		view: {
-			primary: [
-				"#eee",
-				"#eee",
-				"#eee"
-			],
-			secondary: [
-				"#eee",
-				"#eee",
-				"#eee"
-			],
-			tertiary: [
-				"#eee",
-				"#eee",
-				"#eee"
-			],
-		},
-		text: {
-			headings: {
-				primary: [
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)"
-				],
-				secondary: [
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)"
-				],
-				tertiary: [
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)"
-				],
-			},
-			content: {
-				primary: [
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)"
-				],
-				secondary: [
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)"
-				],
-				tertiary: [
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)",
-					"rgba(255,255,255,0.1)"
-				],
-			},
-		}
-		
-	}
-	
-};
+import Colors from '../constants/Colors';
 
 export const PageStyles = StyleSheet.create({
 	background: {
@@ -134,6 +20,24 @@ export const PageStyles = StyleSheet.create({
 		width: '100%',
 		flexDirection: 'row',
 		justifyContent: 'flex-start'
+	},
+	contentSelectionBar: {
+		flex: 1,
+		flexBasis: 'auto',
+		flexGrow: 0,
+		flexShrink: 0,
+		borderRightWidth: 1,
+		borderColor: Colors.light.backgroundColor.secondary,
+		paddingHorizontal: 15
+	},
+	contentSpace: {
+		flex: 1,
+		flexBasis: 'auto',
+		flexGrow: 1,
+		flexShrink: 1,
+		alignItems: 'center',
+		justifyContent: 'flex-start'
+		
 	},
 	container: {
 		flex: 1,
