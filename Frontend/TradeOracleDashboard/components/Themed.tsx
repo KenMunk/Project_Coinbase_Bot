@@ -28,8 +28,15 @@ type ThemeProps = {
   darkColor?: string;
 };
 
+type MenuStateProps = {
+	state?:{};
+	updateState?:{};
+}
+
 export type TextProps = ThemeProps & DefaultText['props'];
 export type ViewProps = ThemeProps & DefaultView['props'];
+export type MenuProps = DefaultView['props'] & MenuStateProps;
+export type ThemedMenuProps = ViewProps & MenuProps;
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -80,21 +87,21 @@ export function Background(props: DefaultView['props']) {
   return <DefaultView style={[{ backgroundColor }, style, PageStyles.contentContainer]} {...otherProps} />;
 }
 
-export function SidePanel(props: DefaultView['props']){
+export function SidePanel(props: MenuProps){
 	const { style, ...otherProps } = props;
 	const backgroundColor = useThemeColor({ light: Colors.light.backgroundColor.primary, dark: Colors.dark.backgroundColor.primary }, 'background');
 
 	return <DefaultView style={[{ backgroundColor }, style, PageStyles.contentSelectionBar]} {...otherProps} />;
 }
 
-export function Content(props: DefaultView['props']){
+export function Content(props: MenuProps){
 	const { style, ...otherProps } = props;
 	const backgroundColor = useThemeColor({ light: Colors.light.backgroundColor.primary, dark: Colors.dark.backgroundColor.primary }, 'background');
 
 	return <DefaultView style={[{ backgroundColor }, style, PageStyles.contentSpace]} {...otherProps} />;
 }
 
-export function MenuButton(props: DefaultView['props']){
+export function MenuButton(props: MenuProps){
 	const { style, ...otherProps } = props;
 	const backgroundColor = useThemeColor({ light: Colors.light.backgroundColor.primary, dark: Colors.dark.backgroundColor.primary }, 'background');
 

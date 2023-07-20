@@ -15,9 +15,9 @@ export default {
 			tertiary: 		"rgba(255,255,255,1)",
 		},
 		view: {
-			primary: 		"rgba(255,255,255,0.1)",
-			secondary: 		"rgba(255,255,255,0.1)",
-			tertiary: 		"rgba(255,255,255,0.1)",
+			primary: 		"rgba(255,255,255,1)",
+			secondary: 		"rgba(216,216,216,1)",
+			tertiary: 		"rgba(255,255,255,1)",
 		},
 		tintedView: {
 			primary: 		"rgba(0,0,0,0.2)",
@@ -46,7 +46,7 @@ export default {
 		tabIconSelected: 	tintColorDark,
 		backgroundColor: {
 			primary: 		"#eee",
-			secondary: 		"#eee",
+			secondary: 		"#bbb",
 			tertiary: 		"#eee",
 		},
 		view: {
