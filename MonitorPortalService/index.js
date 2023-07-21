@@ -29,7 +29,8 @@ try{
 	  origin: process.env.IP.split(','),
 	  credentials: true,
 	};
-	app.use(cors(corsOptions));
+	//app.use(cors(corsOptions));
+	app.use(cors());
 
 	const uri = process.env.ATLAS_URI;
 	mongoose.connect(uri).then(() => {
