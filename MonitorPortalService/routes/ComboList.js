@@ -15,21 +15,23 @@ async function getList(cryptoSymbol, currencySymbol){
 router.all('/', (req, res) => {
 	
 	
-	historySnapshot.find({}).select({$project: {_id: 0, crypto: 1, currency: 1}}).then(function(result){
-		console.log(result);
-		if(result.length > 0){
-			return res.status(200).json({
-				message: "Data available",
-				data: result
-			})
-		}
-		else{
-			return res.status(404).json({
-				message: "Data not available",
-				data: {}
-			})
-		}
+	historySnapshot.find({})then.(function(doc){
+		doc.select({$project: {_id: 0, crypto: 1, currency: 1}}).then(function(result){
+			console.log(result);
+			if(result.length > 0){
+				return res.status(200).json({
+					message: "Data available",
+					data: result
+				})
+			}
+			else{
+				return res.status(404).json({
+					message: "Data not available",
+					data: {}
+				})
+			}
 		//wtf why doesn't the snapshot show up???
+		});
 	});
 	
 });
