@@ -16,7 +16,7 @@ router.all('/', (req, res) => {
 	
 	
 	historySnapshot.find({}).then(function(doc){
-		doc.select({$project: {_id: 0, crypto: 1, currency: 1}}).then(function(result){
+		doc.select('-_id crypto currency').then(function(result){
 			console.log(result);
 			if(result.length > 0){
 				return res.status(200).json({
