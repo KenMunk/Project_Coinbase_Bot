@@ -52,8 +52,10 @@ try{
 		});
 		
 		const snapshot = require('./routes/snapshot');
+		const combos = require('./routes/ComboList');
 		
 		app.use('/snapshot', snapshot);
+		app.use('/combos', combos);
 		
 		console.log("Route Setup Process Complete");
 		// End Route Imports
