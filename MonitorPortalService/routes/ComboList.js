@@ -15,8 +15,9 @@ async function getList(cryptoSymbol, currencySymbol){
 router.all('/getList', (req, res) => {
 	
 	
-	historySnapshot.find({}).then(function(doc){
-		doc.select('-_id crypto currency').then(function(result){
+	historySnapshot.find().then(function(doc){
+		console.log("/getList results found");
+		doc.select('crypto currency').then(function(result){
 			console.log(result);
 			if(result.length > 0){
 				return res.status(200).json({
