@@ -12,7 +12,7 @@ async function getList(cryptoSymbol, currencySymbol){
 	
 }
 
-router.all('/', (req, res) => {
+router.all('/getList', (req, res) => {
 	
 	
 	historySnapshot.find({}).then(function(doc){
