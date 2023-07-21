@@ -37,6 +37,7 @@ export type TextProps = ThemeProps & DefaultText['props'];
 export type ViewProps = ThemeProps & DefaultView['props'];
 export type MenuProps = DefaultView['props'] & MenuStateProps;
 export type ThemedMenuProps = ViewProps & MenuProps;
+export type DefaultViewProps = DefaultView['props'];
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -87,7 +88,7 @@ export function Background(props: DefaultView['props']) {
   return <DefaultView style={[{ backgroundColor }, style, PageStyles.contentContainer]} {...otherProps} />;
 }
 
-export function SidePanel(props: MenuProps){
+export function SidePanel(props: DefaultViewProps){
 	const { style, ...otherProps } = props;
 	const backgroundColor = useThemeColor({ light: Colors.light.backgroundColor.primary, dark: Colors.dark.backgroundColor.primary }, 'background');
 
