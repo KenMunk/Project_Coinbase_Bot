@@ -3,7 +3,12 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
-import { Text as DefaultText, useColorScheme, View as DefaultView } from 'react-native';
+import { Text as DefaultText, useColorScheme, View as DefaultView, TouchableWithoutFeedback } from 'react-native';
+
+import { useState, useCallback, useContext} from "react";
+import { useFocusEffect } from "@react-navigation/native";
+
+import MenuContext from './MenuContext';
 
 import Colors from '../constants/Colors';
 import {PageStyles} from '../styles/PageStyles';
@@ -31,6 +36,11 @@ type ThemeProps = {
 type MenuStateProps = {
 	state?:{};
 	updateState?:{};
+	targetState?:{};
+}
+
+function activateMenuState(MenuProps){
+	MenuProps.updateState(targetState);
 }
 
 export type TextProps = ThemeProps & DefaultText['props'];
@@ -68,8 +78,12 @@ export function Heading2(props: DefaultText['props']){
 }
 
 export function ButtonLabel(props: DefaultText['props']){
+	const {menuState} = useContext(MenuContext);
 	const { style, ...otherProps} = props;
-	const color = useThemeColor({light: Colors.light.font.headings.primary, dark: Colors.light.font.headings.primary}, 'text');
+	
+	var colorMode = (props.children == menuState ? "tint" : "primary");
+	
+	const color = useThemeColor({light: Colors.light.font.headings[colorMode], dark: Colors.light.font.headings[colorMode]}, 'text');
 	
 	return <Heading2 style={[{color}, style, TextStyles.header2]} {...otherProps} />
 }
@@ -105,6 +119,18 @@ export function Content(props: MenuProps){
 export function MenuButton(props: MenuProps){
 	const { style, ...otherProps } = props;
 	const backgroundColor = useThemeColor({ light: Colors.light.backgroundColor.primary, dark: Colors.dark.backgroundColor.primary }, 'background');
+	
+	const handlePress = () => {
+		props.updateState(props.targetState)
+	};
 
-	return <DefaultView style={[{ backgroundColor }, style, PageStyles.menuButton]} {...otherProps} />;
+	return (
+		<TouchableWithoutFeedback 
+			onPress={handlePress}>
+			<DefaultView style={[{ backgroundColor }, style, PageStyles.menuButton]} {...otherProps}>
+				<ButtonLabel>{props.children}</ButtonLabel>
+			</DefaultView>
+		</TouchableWithoutFeedback>
+	
+	);
 }

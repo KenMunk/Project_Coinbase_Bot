@@ -29,11 +29,13 @@ export default {
 				primary: 	"rgba(0,0,0,1)",
 				secondary: 	"rgba(0,0,0,1)",
 				tertiary: 	"rgba(0,0,0,1)",
+				tint: 		tintColorLight,
 			},
 			content: {
 				primary: 	"rgba(0,0,0,1)",
 				secondary: 	"rgba(0,0,0,1)",
 				tertiary: 	"rgba(0,0,0,1)",
+				tint: 		tintColorLight,
 			},
 		}
 		
@@ -64,11 +66,13 @@ export default {
 				primary: 	"rgba(255,255,255,0.1)",
 				secondary: 	"rgba(255,255,255,0.1)",
 				tertiary: 	"rgba(255,255,255,0.1)",
+				tint: 		tintColorLight,
 			},
 			content: {
 				primary: 	"rgba(255,255,255,0.1)",
 				secondary: 	"rgba(255,255,255,0.1)",
 				tertiary: 	"rgba(255,255,255,0.1)",
+				tint: 		tintColorLight,
 			},
 		}
 	},

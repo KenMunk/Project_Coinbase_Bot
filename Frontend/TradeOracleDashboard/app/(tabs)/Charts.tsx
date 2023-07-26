@@ -1,15 +1,19 @@
 import { StyleSheet } from 'react-native';
 
-import { Text, View, Background, Content, SidePanel } from '../../components/Themed';
+import { Text, View, Background, Content, SidePanel, MenuButton, Title, ButtonLabel} from '../../components/Themed';
+
+import { SideMenu } from '../../components/SideMenu';
 
 import {PageStyles} from '../../styles/PageStyles';
 
 export default function ChartsScreen() {
   return (
     <Background>
-		<SidePanel>
-			<Text style={PageStyles.title}>Menu</Text>
-		</SidePanel>
+		<SideMenu>
+			<MenuButton>
+				<ButtonLabel>Fetch Test</ButtonLabel>
+			</MenuButton>
+		</SideMenu>
 		<Content>
 			<Text style={PageStyles.title}>Charts</Text>
 		</Content>
