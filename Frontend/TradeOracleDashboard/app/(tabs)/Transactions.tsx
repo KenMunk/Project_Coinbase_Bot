@@ -2,22 +2,15 @@ import { StyleSheet } from 'react-native';
 
 import { Text, View, Background, Content, SidePanel, MenuButton, Title, ButtonLabel} from '../../components/Themed';
 
-import { SideMenu } from '../../components/SideMenu';
+import FilteredContent from '../../components/FilteredContentSpace';
 
 import {PageStyles} from '../../styles/PageStyles';
 
 export default function TransactionsScreen() {
   return (
-    <Background>
-		<SideMenu>
-			<MenuButton>
-				<ButtonLabel>Fetch Test</ButtonLabel>
-			</MenuButton>
-		</SideMenu>
-		<Content>
-			<Text style={PageStyles.title}>Transactions</Text>
-		</Content>
-    </Background>
+    <FilteredContent>
+		<Text style={PageStyles.title}>Transactions</Text>
+	</FilteredContent>
   );
 }
 

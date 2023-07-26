@@ -2,13 +2,12 @@ import { DefaultViewProps, MenuButton, SidePanel, Content, Background } from './
 import {SideMenu} from './SideMenu';
 import {useState} from 'react';
 
-export function FilteredContent(props: DefaultViewProps){
-	
-	let [ filter, setFilter ] = useState({});
+export default function FilteredContent(props: DefaultViewProps){
 	
 	return(
 		<Background>
-			<SideMenu state={filter} updateState={setFilter}/>
+			<SideMenu/>
+			<Content>{props.children}</Content>
 		</Background>
 	);
 }
