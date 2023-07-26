@@ -5,7 +5,7 @@ const historySnapshot = require('../models/historySnapshot');
 async function update(cryptoType, currencyType){
 	
 	//http://localhost:4000/log/getHistory/ETH/USD/12
-	var historyPath = process.env.PeerService+"log/getHistory/"+cryptoType+"/"+currencyType+"/12";
+	var historyPath = process.env.PeerService+"log/getHistory/"+cryptoType+"/"+currencyType+"/12/2";
 	
 	var history = (await fetch(historyPath));
 	
@@ -15,6 +15,9 @@ async function update(cryptoType, currencyType){
 	else{
 		history = await history.json();
 	}
+	
+	console.log("History length: " + history.data.length)
+	
 	/*
 	await TrackerLog.updateOne(
 		{
@@ -45,7 +48,7 @@ async function update(cryptoType, currencyType){
 		await new historySnapshot(updateSnapshot).save();
 	}
 	else{
-		historySnapshot.updateOne(
+		await historySnapshot.updateOne(
 			{
 				crypto: cryptoType,
 				currency: currencyType
@@ -61,7 +64,7 @@ async function update(cryptoType, currencyType){
 		currency: currencyType
 	});
 	
-	console.log(JSON.stringify(updatedHistory));
+	//console.log(JSON.stringify(updatedHistory));
 }
 
 exports.initScheduledJobs = (cryptoType, currencyType) => {
