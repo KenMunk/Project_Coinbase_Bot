@@ -1,26 +1,29 @@
 
-type queryOptions = {
+
+export type queryOptions = {
 	defaultValue?: any;
 	successMessage?: string;
 	failMessage?: string;
-	callbackOp?: any;
+	callbackOp: {};
 	debugMode?: boolean;
 	targetField?: string;
+	queryPath: string;
+	queryHeader: {};
 }
 
 
-export async function RunQuery(queryPath: string, queryHeader: {}, options: queryOptions){
+export async function RunQuery(options: queryOptions){
 	try{
 		let response = await fetch(
-			queryPath,
-			queryHeader
+			options.queryPath,
+			options.queryHeader
 		);
 		
 		let responseData = await response.json();
 		
 		if(response.status == 200){
 			if(options.successMessage && options.debugMode){
-				console.log(options.successMessage+"\n"+responseData);
+				console.log(options.successMessage+"\n"+JSON.stringify(responseData));
 			}
 		}else{
 			if(options.failMessage && options.debugMode){
@@ -32,15 +35,14 @@ export async function RunQuery(queryPath: string, queryHeader: {}, options: quer
 			status: response.status,
 		}
 		
-		if(options.callbackOp){
-			if(options.targetField){
-				callbackPayload.data = responseData[options.targetField];
-			}
-			else{
-				callbackPayload.data = responseData;
-			}
-			options.callbackOp(callbackPayload);
+		if('targetField' in options){
+			console.log("Target Field is " + options.targetField);
+			callbackPayload.data = responseData[options.targetField];
 		}
+		else{
+			callbackPayload.data = responseData;
+		}
+		options.callbackOp(callbackPayload);
 	}
 	catch(error){		
 		if(options.failMessage && options.debugMode){
