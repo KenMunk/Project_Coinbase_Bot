@@ -4,8 +4,8 @@ import {PageStyles} from '../../styles/PageStyles';
 
 import {queryOptions, RunQuery} from '../Querying/RunQuery';
 
-export function CallTest(queryPath: string, queryHeader: {}, options: queryOptions){
+export function QueryText(options: queryOptions){
 	
-	
+	RunQuery(options);
 	
 }

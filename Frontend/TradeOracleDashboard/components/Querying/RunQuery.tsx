@@ -4,7 +4,7 @@ export type queryOptions = {
 	defaultValue?: any;
 	successMessage?: string;
 	failMessage?: string;
-	callbackOp: {};
+	callbackOp?: {};
 	debugMode?: boolean;
 	targetField?: string;
 	queryPath: string;
@@ -34,15 +34,16 @@ export async function RunQuery(options: queryOptions){
 		let callbackPayload = {
 			status: response.status,
 		}
-		
-		if('targetField' in options){
-			console.log("Target Field is " + options.targetField);
-			callbackPayload.data = responseData[options.targetField];
+		if('callbackOp' in options){
+			if('targetField' in options){
+				console.log("Target Field is " + options.targetField);
+				callbackPayload.data = responseData[options.targetField];
+			}
+			else{
+				callbackPayload.data = responseData;
+			}
+			options.callbackOp(callbackPayload);
 		}
-		else{
-			callbackPayload.data = responseData;
-		}
-		options.callbackOp(callbackPayload);
 	}
 	catch(error){		
 		if(options.failMessage && options.debugMode){
