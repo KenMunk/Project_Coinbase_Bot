@@ -4,23 +4,23 @@ import MenuContext from './MenuContext';
 import { useState, useCallback, useContext} from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
-async function GetCombos(){
+import {RunQuery} from './Querying/RunQuery';
+
+function GetCombos(updateCallback: {}){
 	
-	try{
-		let comboResponse = await fetch('https://trader-dashboard-service.onrender.com/combos/getList', {
-			method: 'GET'
-		});
-		
-		let comboData = await comboResponse.json();
-		
-		console.log(comboData.data);
-		
-		return(comboData.data);
-	}
-	catch(error){
-		console.log('No Combo Data Found');
-		return([]);
-	}
+	RunQuery(		
+		{
+			queryPath: 'https://trader-dashboard-service.onrender.com/combos/getList',
+			queryHeader: {
+				method: 'GET'
+			},
+			successMessage: "Combo List Obtained",
+			failMessage: "Combo List Failed To Load",
+			callbackOp: updateCallback,
+			debugMode: true,
+			targetField: 'data'
+		}
+	)
 	
 }
 
@@ -33,20 +33,7 @@ export function SideMenu(props: MenuProps){
 	const [ combo, setCombos ] = useState();
 	
 	const testSideMenu = async () => { 
-		try{
-			let comboResponse = await fetch('https://trader-dashboard-service.onrender.com/combos/getList', {
-				method: 'GET'
-			});
-			
-			let comboData = await comboResponse.json();
-			
-			console.log(comboData.data);
-			
-			await setCombos(await comboData.data);
-		}
-		catch(error){
-			console.log('No Combo Data Found\n'+error);
-		}
+		await GetCombos(setCombos);
 	}
 	
 	useFocusEffect(
@@ -59,7 +46,7 @@ export function SideMenu(props: MenuProps){
 	return(
 		<SidePanel>
 			<MenuButton state={menuState} updateState={setMenuState} targetState={"Summary"}>Summary</MenuButton>
-			{combo ? (combo.map( comboEntry  => (
+			{combo ? (combo.data.map( comboEntry  => (
 				/*Replace all menuState with props.state*/
 				/*Replace all setMenuState with props.updateState*/
 				<MenuButton key={comboEntry._id} state={menuState} updateState={setMenuState} targetState={comboEntry.crypto}>{comboEntry.crypto}</MenuButton>
