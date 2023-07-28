@@ -4,7 +4,7 @@
     {
       "entity": {
         "type": "Project",
-        "id": "9e5ea6d1-aa36-41f8-a440-f9bd87a8e48b",
+        "id": "7d6fe177-39d0-493d-813e-6f6b84bf40d4",
         "name": "Project Coinbase Trader Bot Dashboard"
       },
       "children": [
@@ -36,7 +36,7 @@
               "host": "trader-dashboard-service.onrender.com",
               "path": "/snapshot/clean/ETH/USD"
             },
-            "id": "73408fa4-b238-4ebb-8133-365f8afd16aa",
+            "id": "6495b5b9-662c-4bb9-be43-d27f90a9ecf0",
             "name": "Clean History Snapshot Test",
             "headers": [],
             "assertions": [
@@ -95,7 +95,7 @@
               "host": "trader-dashboard-service.onrender.com",
               "path": "/combos/getList"
             },
-            "id": "23b0b790-a4c0-4ff3-a6d9-f1d6c7fb591a",
+            "id": "5de0b62f-c707-41d4-9823-cf19fa791f4f",
             "name": "Combo List Test",
             "headers": [],
             "assertions": [
@@ -154,7 +154,7 @@
               "host": "trader-dashboard-service.onrender.com",
               "path": "/snapshot/ETH/USD"
             },
-            "id": "34a85d6c-dca6-44e1-b876-2bcafed623ae",
+            "id": "f3a47429-c1dd-4a2e-afeb-88446efadd5d",
             "name": "History Snapshot Test",
             "headers": [],
             "assertions": [
@@ -213,7 +213,7 @@
               "host": "trader-dashboard-service.onrender.com",
               "path": "/"
             },
-            "id": "cb909bbb-bc2f-423f-8a93-cd2ed3fd811b",
+            "id": "f4db8978-50e4-4276-a6f2-5359f0fbee16",
             "name": "Is Alive Check",
             "headers": [],
             "assertions": [
@@ -225,13 +225,72 @@
               }
             ]
           }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "secure": true,
+                "name": "https",
+                "version": "V11"
+              },
+              "host": "trader-dashboard-service.onrender.com",
+              "path": "/heartbeat"
+            },
+            "id": "b4d273cd-dc26-4bdc-8528-8c38c949ec45",
+            "name": "Test Heartbeat Time",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              },
+              {
+                "comparison": "GreateOrEqual",
+                "subject": "ResponseJsonBody",
+                "path": "$.data",
+                "value": "0"
+              },
+              {
+                "comparison": "Less",
+                "subject": "Response",
+                "path": "latency",
+                "value": "5000"
+              },
+              {
+                "comparison": "Less",
+                "subject": "ResponseJsonBody",
+                "path": "$.data",
+                "value": "700"
+              }
+            ]
+          }
         }
       ]
     },
     {
       "entity": {
         "type": "Project",
-        "id": "2ee05d46-4990-465b-a822-d7290e5cef1b",
+        "id": "c09088ad-dd1d-4138-8148-bd6407624f09",
         "name": "Project Coinbase Trader Bot Local Testing"
       },
       "children": [
@@ -260,11 +319,135 @@
                 "version": "V11"
               },
               "host": "127.0.0.1:5000",
+              "path": "/snapshot/clean/ETH/USD"
+            },
+            "id": "6aa0fb83-5cad-4d9c-8cff-f328ab695eee",
+            "name": "Clean History Snapshot Test",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              },
+              {
+                "comparison": "Matches",
+                "subject": "ResponseJsonBody",
+                "path": "$.message",
+                "value": "Data available for ETH-USD"
+              },
+              {
+                "comparison": "Exists",
+                "subject": "ResponseJsonBody",
+                "path": "$.data[0].buy",
+                "value": "1"
+              },
+              {
+                "comparison": "LengthGreaterThanOrEqual",
+                "subject": "ResponseJsonBody",
+                "path": "$.data",
+                "value": "2"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
+              "path": "/snapshot/ETH/USD"
+            },
+            "id": "6e5416e8-714c-4d43-86e9-a9423040e6e5",
+            "name": "History Snapshot Test",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              },
+              {
+                "comparison": "Matches",
+                "subject": "ResponseJsonBody",
+                "path": "$.message",
+                "value": "Data available for ETH-USD"
+              },
+              {
+                "comparison": "Exists",
+                "subject": "ResponseJsonBody",
+                "path": "$.data.snapshot.data[0].buy",
+                "value": "1"
+              },
+              {
+                "comparison": "LengthGreaterThanOrEqual",
+                "subject": "ResponseJsonBody",
+                "path": "$.data.snapshot.data",
+                "value": "1"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
               "path": "/"
             },
-            "id": "1c2c4d1a-68ca-444c-85c5-cac5b6929e0f",
+            "id": "ab9a90fa-a706-4e26-925b-4524f9cae90b",
             "name": "Test Heartbeat",
-            "headers": []
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              }
+            ]
           }
         },
         {
@@ -294,7 +477,7 @@
               "host": "127.0.0.1:5000",
               "path": "/heartbeat"
             },
-            "id": "f64a2175-1a00-4e78-959d-0c0684d731b4",
+            "id": "0fbecf26-7a62-4a78-bcb9-438481289f2e",
             "name": "Test Heartbeat Time",
             "headers": [],
             "assertions": [
@@ -305,10 +488,22 @@
                 "value": "200"
               },
               {
-                "comparison": "Equals",
-                "subject": "ResponseStatus",
-                "path": "code",
-                "value": "200"
+                "comparison": "GreateOrEqual",
+                "subject": "ResponseJsonBody",
+                "path": "$.data",
+                "value": "0"
+              },
+              {
+                "comparison": "Less",
+                "subject": "Response",
+                "path": "latency",
+                "value": "5000"
+              },
+              {
+                "comparison": "Less",
+                "subject": "ResponseJsonBody",
+                "path": "$.data",
+                "value": "700"
               }
             ]
           }
