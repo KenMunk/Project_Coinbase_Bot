@@ -13,27 +13,41 @@ async function getHistory(cryptoSymbol, currencySymbol){
 }
 
 async function getPulse(){
-	var history = await historySnapshot.find();
-	
-	return(await history.snapshot.data);
+	var history = await historySnapshot.findOne();
+	var lastTimestamp = history.snapshot.data.pop().timestamp
+	var timeOfNow = (Date.now().valueOf())
+	console.log("Last timestamp was " + (timeOfNow - lastTimestamp)/1000 + " seconds ago");
+	return((timeOfNow - lastTimestamp)/1000);
 }
 
-router.all('heartbeat', (req, res) => {
-	
-	return res.status(200).json({
-		message: "Server is alive",
-		
-	})
-	
-});
 
-router.all('', (req, res) => {
+router.all('/', (req, res) => {
 	
 	return res.status(200).json({
 		
 		message: "Server is alive"
 		
 	});
+	
+}); 
+
+router.all('/heartbeat', (req, res) => {
+	
+	var response = {
+		message: "Server is alive",
+		data: null
+	};
+	
+	
+	console.log("Heartbeat requested");
+	
+	getPulse().then(function(dataPulse){
+		response.data = dataPulse;
+		
+		return res.status(200).json(response);
+	});
+	
+	//return res.status(404).json({message: "Pulse data not found"});
 	
 });
 
