@@ -7,7 +7,7 @@ const https = require("https");
 const fs = require("fs");
 const app = express();
 
-if(process.env.ATLAS_URI !== undefined){
+if(process.env.ATLAS_URI == undefined){
 	require("DOTenv").config();
 }
 
