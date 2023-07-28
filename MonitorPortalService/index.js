@@ -7,7 +7,7 @@ const https = require("https");
 const fs = require("fs");
 const app = express();
 
-//require("DOTenv").config();
+require("DOTenv").config();
 
 try{
 	// Route Imports
@@ -47,16 +47,15 @@ try{
 
 
 
-		app.get("/", (req, res) => {
-			res.send("");
-			console.log("Request detected - Trader Service Alive");
-		});
+		
 		
 		const snapshot = require('./routes/snapshot');
 		const combos = require('./routes/ComboList');
+		const heartbeat = require('./routes/heartbeat');
 		
 		app.use('/snapshot', snapshot);
 		app.use('/combos', combos);
+		app.use('/', heartbeat)
 		
 		console.log("Route Setup Process Complete");
 		// End Route Imports
