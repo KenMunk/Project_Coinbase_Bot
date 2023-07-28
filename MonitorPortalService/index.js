@@ -7,7 +7,9 @@ const https = require("https");
 const fs = require("fs");
 const app = express();
 
-require("DOTenv").config();
+if(process.env.ATLAS_URI !== undefined){
+	require("DOTenv").config();
+}
 
 try{
 	// Route Imports
