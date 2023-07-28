@@ -16,6 +16,8 @@ router.all('/clean/:cryptoSymbol/:currencySymbol', (req, res) => {
 	const cryptoSymbol = req.params.cryptoSymbol+"";
 	const currencySymbol = req.params.currencySymbol+"";
 	
+	console.log("clean snapshot requested");
+	
 	historySnapshot.find({crypto: cryptoSymbol, currency: currencySymbol}).then(function(result){
 		console.log(result);
 		if(result.length > 0){
