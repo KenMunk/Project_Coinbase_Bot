@@ -11,6 +11,14 @@ const historySnapshot = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	updateTime: {
+		type: Number,
+		required: false
+	},
+	lastEntry: {
+		type: Schema.Types.Mixed,
+		required: false
+	},
 	snapshot: {
 		type: Schema.Types.Mixed,
 		required: true
