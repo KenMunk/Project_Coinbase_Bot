@@ -4,7 +4,7 @@
     {
       "entity": {
         "type": "Project",
-        "id": "7d6fe177-39d0-493d-813e-6f6b84bf40d4",
+        "id": "40f349d4-ad46-4cc2-beb9-fe87e31b394e",
         "name": "Project Coinbase Trader Bot Dashboard"
       },
       "children": [
@@ -36,7 +36,7 @@
               "host": "trader-dashboard-service.onrender.com",
               "path": "/snapshot/clean/ETH/USD"
             },
-            "id": "6495b5b9-662c-4bb9-be43-d27f90a9ecf0",
+            "id": "a682716b-7903-423c-b192-594ea6ccf6d8",
             "name": "Clean History Snapshot Test",
             "headers": [],
             "assertions": [
@@ -95,7 +95,7 @@
               "host": "trader-dashboard-service.onrender.com",
               "path": "/combos/getList"
             },
-            "id": "5de0b62f-c707-41d4-9823-cf19fa791f4f",
+            "id": "12887d17-291f-4442-95ef-1a331dbe211b",
             "name": "Combo List Test",
             "headers": [],
             "assertions": [
@@ -154,7 +154,7 @@
               "host": "trader-dashboard-service.onrender.com",
               "path": "/snapshot/ETH/USD"
             },
-            "id": "f3a47429-c1dd-4a2e-afeb-88446efadd5d",
+            "id": "e7ac511e-1d69-4a60-9d69-a64670e8a1a5",
             "name": "History Snapshot Test",
             "headers": [],
             "assertions": [
@@ -213,7 +213,7 @@
               "host": "trader-dashboard-service.onrender.com",
               "path": "/"
             },
-            "id": "f4db8978-50e4-4276-a6f2-5359f0fbee16",
+            "id": "ae8693e8-4cf2-4297-a9cc-7fbacf0763a8",
             "name": "Is Alive Check",
             "headers": [],
             "assertions": [
@@ -254,7 +254,7 @@
               "host": "trader-dashboard-service.onrender.com",
               "path": "/heartbeat"
             },
-            "id": "b4d273cd-dc26-4bdc-8528-8c38c949ec45",
+            "id": "05e9d454-db35-4284-95a7-fc9281d45042",
             "name": "Test Heartbeat Time",
             "headers": [],
             "assertions": [
@@ -290,7 +290,7 @@
     {
       "entity": {
         "type": "Project",
-        "id": "c09088ad-dd1d-4138-8148-bd6407624f09",
+        "id": "c1206af8-c196-428b-871b-ce30c5dcd0cb",
         "name": "Project Coinbase Trader Bot Local Testing"
       },
       "children": [
@@ -319,10 +319,366 @@
                 "version": "V11"
               },
               "host": "127.0.0.1:5000",
+              "path": "/"
+            },
+            "id": "68bb8120-bc23-49a5-a0a6-00b214b705ff",
+            "name": "Heartbeat",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
+              "path": "/heartbeat"
+            },
+            "id": "d42ef5b0-01e6-4b1c-8b4e-47f0ecdbbc4f",
+            "name": "Heartbeat Time",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              },
+              {
+                "comparison": "GreateOrEqual",
+                "subject": "ResponseJsonBody",
+                "path": "$.data",
+                "value": "0"
+              },
+              {
+                "comparison": "Less",
+                "subject": "Response",
+                "path": "latency",
+                "value": "5000"
+              },
+              {
+                "comparison": "Less",
+                "subject": "ResponseJsonBody",
+                "path": "$.data",
+                "value": "700"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
+              "path": "/portfolio"
+            },
+            "id": "29314871-d6b9-4b5e-81fa-e3699b27709a",
+            "name": "Portfolio Login Route Exists",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
+              "path": "/portfolio/profitability"
+            },
+            "id": "64e94f25-adac-459f-9bbf-25b100fe77c8",
+            "name": "Portfolio Profitability Route Exists",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
+              "path": "/portfolio/profitability/ETH/USD"
+            },
+            "id": "65c7ed0d-5276-4322-9cc8-74ae66fe26f4",
+            "name": "Portfolio Profitability Selection Route Exists",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
+              "path": "/portfolio/transactions"
+            },
+            "id": "b3758f53-7cfb-44c0-a94b-ce19ba0488cb",
+            "name": "Portfolio Transactions Route Exists",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
+              "path": "/portfolio/transactions/ETH/USD"
+            },
+            "id": "5927718e-3e77-4640-8cda-fa36a4d8320d",
+            "name": "Portfolio Transactions Selection Route Exists",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
+              "path": "/snapshot/ETH/USD"
+            },
+            "id": "846cb8cf-31fd-4b3a-91f0-fddef072bc37",
+            "name": "Snapshot",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              },
+              {
+                "comparison": "Matches",
+                "subject": "ResponseJsonBody",
+                "path": "$.message",
+                "value": "Data available for ETH-USD"
+              },
+              {
+                "comparison": "Exists",
+                "subject": "ResponseJsonBody",
+                "path": "$.data.snapshot.data[0].buy",
+                "value": "1"
+              },
+              {
+                "comparison": "LengthGreaterThanOrEqual",
+                "subject": "ResponseJsonBody",
+                "path": "$.data.snapshot.data",
+                "value": "1"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
               "path": "/snapshot/clean/ETH/USD"
             },
-            "id": "6aa0fb83-5cad-4d9c-8cff-f328ab695eee",
-            "name": "Clean History Snapshot Test",
+            "id": "ca2bcf55-1af8-4339-8fc0-dd1a25b7a723",
+            "name": "Snapshot (Clean History)",
             "headers": [],
             "assertions": [
               {
@@ -377,10 +733,10 @@
                 "version": "V11"
               },
               "host": "127.0.0.1:5000",
-              "path": "/snapshot/ETH/USD"
+              "path": "/target/ETH/USD"
             },
-            "id": "6e5416e8-714c-4d43-86e9-a9423040e6e5",
-            "name": "History Snapshot Test",
+            "id": "049e761f-d2c6-4065-9b10-6560825816fe",
+            "name": "Target",
             "headers": [],
             "assertions": [
               {
@@ -390,22 +746,16 @@
                 "value": "200"
               },
               {
-                "comparison": "Matches",
+                "comparison": "Greater",
                 "subject": "ResponseJsonBody",
-                "path": "$.message",
-                "value": "Data available for ETH-USD"
+                "path": "$.data.lastUpdate",
+                "value": "0"
               },
               {
                 "comparison": "Exists",
                 "subject": "ResponseJsonBody",
-                "path": "$.data.snapshot.data[0].buy",
-                "value": "1"
-              },
-              {
-                "comparison": "LengthGreaterThanOrEqual",
-                "subject": "ResponseJsonBody",
-                "path": "$.data.snapshot.data",
-                "value": "1"
+                "path": "$.data.trending",
+                "value": "200"
               }
             ]
           }
@@ -435,10 +785,10 @@
                 "version": "V11"
               },
               "host": "127.0.0.1:5000",
-              "path": "/"
+              "path": "/target/ETH/USD/demo/profitability"
             },
-            "id": "ab9a90fa-a706-4e26-925b-4524f9cae90b",
-            "name": "Test Heartbeat",
+            "id": "0584763a-f3be-4420-9602-2d139f3751bc",
+            "name": "Target Demo Profitability",
             "headers": [],
             "assertions": [
               {
@@ -475,10 +825,90 @@
                 "version": "V11"
               },
               "host": "127.0.0.1:5000",
-              "path": "/heartbeat"
+              "path": "/target/ETH/USD/demo/profitability/30"
             },
-            "id": "0fbecf26-7a62-4a78-bcb9-438481289f2e",
-            "name": "Test Heartbeat Time",
+            "id": "8d164ced-4552-4de2-a5ca-daedc927b0bb",
+            "name": "Target Demo Profitability Interval",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
+              "path": "/target/ETH/USD/demo/transactions"
+            },
+            "id": "86c3e1ca-5239-4f08-a413-fce946c1e18b",
+            "name": "Target Demo Transactions",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
+              "path": "/target/ETH/USD/highlights"
+            },
+            "id": "f977771a-6a59-43ac-9339-cb4d12cd22a1",
+            "name": "Target Pattern Highlights",
             "headers": [],
             "assertions": [
               {
@@ -488,22 +918,96 @@
                 "value": "200"
               },
               {
-                "comparison": "GreateOrEqual",
+                "comparison": "Greater",
                 "subject": "ResponseJsonBody",
-                "path": "$.data",
+                "path": "$.data.lastUpdate",
                 "value": "0"
               },
               {
-                "comparison": "Less",
-                "subject": "Response",
-                "path": "latency",
-                "value": "5000"
-              },
-              {
-                "comparison": "Less",
+                "comparison": "Exists",
                 "subject": "ResponseJsonBody",
-                "path": "$.data",
-                "value": "700"
+                "path": "$.data.trending",
+                "value": "200"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
+              "path": "/target/ETH/USD/snapshot"
+            },
+            "id": "212b6000-fc97-4108-95dd-4fa85f96dd03",
+            "name": "Target snapshot",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "127.0.0.1:5000",
+              "path": "/target/ETH/USD/snapshot"
+            },
+            "id": "7126e957-c054-4e20-a2e5-05bf24c01941",
+            "name": "Target snapshot clean",
+            "headers": [],
+            "assertions": [
+              {
+                "comparison": "Equals",
+                "subject": "ResponseStatus",
+                "path": "code",
+                "value": "200"
               }
             ]
           }
