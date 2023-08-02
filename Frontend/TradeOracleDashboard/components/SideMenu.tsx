@@ -1,7 +1,7 @@
 import { MenuProps, MenuButton, SidePanel, ButtonLabel } from './Themed';
 import MenuContext from './MenuContext';
 
-import { useState, useCallback, useContext} from "react";
+import { useState, useCallback, useContext, useEffect} from "react";
 import { useFocusEffect } from "@react-navigation/native";
 
 import {RunQuery} from './Querying/RunQuery';
@@ -32,6 +32,7 @@ export function SideMenu(props: MenuProps){
 	
 	const [ combo, setCombos ] = useState();
 	
+	
 	const testSideMenu = async () => { 
 		await GetCombos(setCombos);
 	}
@@ -41,6 +42,7 @@ export function SideMenu(props: MenuProps){
 			testSideMenu();
 		}, [])
 	);
+	
 	
 	//Need to look into how I can preserve the menu state by passing that state all the way up to the layout level
 	return(
