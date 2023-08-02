@@ -60,6 +60,16 @@ export const PageStyles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight: 'bold',
 	},
+	titleBlock: {
+		flex: 1,
+		flexBasis: 'auto',
+		flexGrow: 0,
+		flexShrink: 0,
+		paddingHorizontal: 15,
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'flex-start',
+	},
 	separator: {
 		marginVertical: 30,
 		height: 1,

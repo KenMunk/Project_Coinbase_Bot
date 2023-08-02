@@ -9,7 +9,8 @@ import {RunQuery} from './Querying/RunQuery';
 
 import Colors from '../constants/Colors';
 
-import { Text, View, Background} from './Themed';
+import { Text, View, ClearView, Background, Title, TitleBlock, Shrinkable} from './Themed';
+
 
 function GetServerStatus(updateCallback: {}) {
 	
@@ -42,12 +43,6 @@ export function HomeButton(){
 	const getServerStatus = async () => { 
 		await GetServerStatus(setBeacon);
 		
-		if(beacon.status == 200){
-			setStatusColor(AliveColor);
-		}
-		else{
-			setStatusColor(DownColor);
-		}
 	}
 	
 	useFocusEffect(
@@ -57,24 +52,44 @@ export function HomeButton(){
 	);
 	
 	useEffect(() => {
-		let interval = setInterval(() => {
-			getServerStatus();
-		}, 10000);
 		
-		return () => clearInterval(interval);
+		if(beacon.status == 200){
+			setStatusColor(AliveColor);
+		}
+		else{
+			setStatusColor(DownColor);
+		}
+		
+		if(beacon == {}){
+			getServerStatus();
+		}
+		else{
+				
+			let interval = setInterval(() => {
+				getServerStatus();
+			}, 10000);
+			
+			return () => clearInterval(interval);
+		}
+		
 	});
 	
 	return(
-		<View style={{width: 76, alignItems: 'center', justifyContent: 'center'}}>
+		<View style={{height: 50, alignItems: 'center', justifyContent: 'center'}}>
 			<Link href="/" asChild>
 				<Pressable>
 					{({ pressed }) => (
-						<FontAwesome
-							name="circle"
-							size={25}
-							color={statusColor}
-							style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-						/>
+						<TitleBlock>
+							<ClearView>
+								<FontAwesome
+									name="circle"
+									size={25}
+									color={statusColor}
+									style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+								/>
+							</ClearView>
+							<Title>{"Project Crypto Trader"}</Title>
+						</TitleBlock>
 					)}
 				</Pressable>
 			</Link>
