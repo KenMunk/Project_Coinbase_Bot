@@ -30,11 +30,11 @@ export function SideMenu(props: MenuProps){
 	
 	const { menuState, setMenuState} = useContext(MenuContext);
 	
-	const [ combo, setCombos ] = useState();
+	const { comboList, setComboList} = useContext(MenuContext);
 	
 	
 	const testSideMenu = async () => { 
-		await GetCombos(setCombos);
+		await GetCombos(setComboList);
 	}
 	
 	useFocusEffect(
@@ -48,7 +48,8 @@ export function SideMenu(props: MenuProps){
 	return(
 		<SidePanel>
 			<MenuButton state={menuState} updateState={setMenuState} targetState={"Summary"}>Summary</MenuButton>
-			{combo ? (combo.data.map( comboEntry  => (
+			
+			{comboList.data  ? (comboList.data.map( comboEntry  => (
 				/*Replace all menuState with props.state*/
 				/*Replace all setMenuState with props.updateState*/
 				<MenuButton key={comboEntry._id} state={menuState} updateState={setMenuState} targetState={comboEntry.crypto}>{comboEntry.crypto}</MenuButton>
