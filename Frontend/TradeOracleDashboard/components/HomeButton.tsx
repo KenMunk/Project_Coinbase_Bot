@@ -23,7 +23,7 @@ function GetServerStatus(updateCallback: {}) {
 			successMessage: "Server Alive",
 			failMessage: "Server Down",
 			callbackOp: updateCallback,
-			debugMode: true,
+			debugMode: false,
 			targetField: 'message'
 		}
 	)
