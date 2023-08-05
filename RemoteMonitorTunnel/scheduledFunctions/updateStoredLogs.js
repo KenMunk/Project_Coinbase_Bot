@@ -37,6 +37,26 @@ async function update(cryptoType, currencyType){
 		);
 		//*/
 		
+		let tempData = history.data;
+		
+		let chartData = {};
+		
+		tempData.forEach((entry) => {
+			
+			Object.keys(entry).forEach(key => {
+				
+				if(key in chartData){
+					console.log(key + " exists in chartData");
+					//chartData[key] += entry[key];
+				}
+				
+			});
+			
+		});
+		
+		
+		
+		
 		var existingHistory = await historySnapshot.find({
 			crypto: cryptoType,
 			currency: currencyType
