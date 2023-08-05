@@ -95,6 +95,23 @@ export function View(props: ViewProps) {
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
 
+export function ClearView(props: DefaultView['props']){
+	const { style, ...otherProps } = props;
+	return(<DefaultView style={style} {...otherProps} />)
+}
+
+export function TitleBlock(props: DefaultViewProps){
+	const { style, ...otherProps} = props;
+	
+	return(<DefaultView style={[style, PageStyles.titleBlock]} {...otherProps} />);
+}
+
+export function Shrinkable(props: DefaultViewProps){
+	const {style, ...otherProps} = props;
+	
+	return(<DefaultView style={[style, PageStyles.shrinkable]} {...otherProps}/>)
+}
+
 export function Background(props: DefaultView['props']) {
   const { style, ...otherProps } = props;
   const backgroundColor = useThemeColor({ light: Colors.light.backgroundColor.primary, dark: Colors.dark.backgroundColor.primary }, 'background');

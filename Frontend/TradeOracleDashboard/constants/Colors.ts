@@ -3,6 +3,10 @@ const tintColorDark = '#fff';
 
 export default {
 	
+	status: {
+		active: "#009900",
+		inactive: "#ff0000",
+	},
 	light: {
 		text: 				'#000',
 		background: 		'#fff',

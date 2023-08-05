@@ -42,10 +42,11 @@ function RootLayoutNav() {
 	const colorScheme = useColorScheme();
 	
 	const [menuState, setMenuState] = useState("Summary");
+	const [comboList, setComboList] = useState({});
 	
 	return (
 	<>
-		<MenuContext.Provider value={{menuState, setMenuState}}>
+		<MenuContext.Provider value={{menuState, setMenuState, comboList, setComboList}}>
 			<ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
 				<Stack>
 					<Stack.Screen name="index" options={{
